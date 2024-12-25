@@ -1,6 +1,6 @@
 {
   "name": "teleidoscope",
-  "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
+  "description": "State of the art tracking software and systems.",
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=nextjs-app\" \"npm run dev --workspace=studio\""
   },
