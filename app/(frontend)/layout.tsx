@@ -2,8 +2,8 @@ import '../globals.css'
 
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
-import { toPlainText, VisualEditing } from 'next-sanity'
-import { Inter } from 'next/font/google'
+import { VisualEditing } from 'next-sanity'
+import localFont from 'next/font/local'
 import { draftMode } from 'next/headers'
 import { Toaster } from 'sonner'
 
@@ -12,8 +12,8 @@ import { settingsQuery } from '@/sanity/lib/queries'
 import { resolveOpenGraphImage } from '@/sanity/lib/utils'
 import { handleError } from './client-utils'
 import DraftModeToast from './components/DraftModeToast'
-import Footer from './components/Footer'
-import Header from './components/Header'
+import Footer from './components/navigation/Footer'
+import Header from './components/navigation/Header'
 
 /**
  * Generate metadata for the page.
@@ -25,8 +25,9 @@ export async function generateMetadata(): Promise<Metadata> {
 		// Metadata should never contain stega
 		stega: false,
 	})
-	const title = settings?.title
-	const description = settings?.description
+	const title = settings?.title || 'Teleidoscope'
+	const description =
+		settings?.description || 'State of the art tracking software and systems.'
 
 	const ogImage = resolveOpenGraphImage(settings?.ogImage)
 	let metadataBase: URL | undefined = undefined
@@ -43,16 +44,28 @@ export async function generateMetadata(): Promise<Metadata> {
 			template: `%s | ${title}`,
 			default: title,
 		},
-		description: toPlainText(description),
+		description: description,
 		openGraph: {
 			images: ogImage ? [ogImage] : [],
 		},
 	}
 }
 
-const inter = Inter({
-	variable: '--font-inter',
-	subsets: ['latin'],
+const sohne = localFont({
+	variable: '--font-family-text',
+	src: '../lib/fonts/Sohne-Buch.woff2',
+	display: 'swap',
+})
+
+const sohneMono = localFont({
+	variable: '--font-family-mono',
+	src: '../lib/fonts/SohneMono-Buch.woff2',
+	display: 'swap',
+})
+
+const sohneKraftig = localFont({
+	variable: '--font-family-action',
+	src: '../lib/fonts/SohneMono-Kraftig.woff2',
 	display: 'swap',
 })
 
@@ -64,21 +77,24 @@ export default async function RootLayout({
 	const { isEnabled: isDraftMode } = await draftMode()
 
 	return (
-		<html lang="en" className={`${inter.variable} bg-offWhite text-black`}>
+		<html
+			lang="en"
+			className={`${sohne.variable} ${sohneMono.variable} ${sohneKraftig.variable} bg-offWhite text-black`}
+		>
 			<body>
 				<section className="min-h-screen pt-24">
-					<Toaster />
-					{isDraftMode && (
-						<>
-							<DraftModeToast />
-							<VisualEditing />
-						</>
-					)}
-					<SanityLive onError={handleError} />
 					<Header />
 					<main className="">{children}</main>
 					<Footer />
 				</section>
+				<Toaster />
+				{isDraftMode && (
+					<>
+						<DraftModeToast />
+						<VisualEditing />
+					</>
+				)}
+				<SanityLive onError={handleError} />
 				<SpeedInsights />
 			</body>
 		</html>

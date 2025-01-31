@@ -1,3 +1,62 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	:root {
+		--header-height: 96px;
+	}
+}
+
+/* Typography */
+.hero {
+	@apply text-hero-sm md:text-hero-md lg:text-hero-lg;
+}
+
+.h1 {
+	@apply text-h1-sm md:text-h1-md lg:text-h1-lg;
+}
+
+.h2 {
+	@apply text-h2-sm md:text-h2-md lg:text-h2-lg;
+}
+
+.h3 {
+	@apply text-h3-sm md:text-h3-md lg:text-h3-lg;
+}
+
+.h4 {
+	@apply text-h4;
+}
+
+.body {
+	@apply text-body-sm md:text-body;
+}
+
+.callout {
+	@apply text-callout-sm md:text-callout;
+}
+
+.article {
+	@apply text-article-sm md:text-article-md lg:text-article-lg;
+}
+
+.cta {
+	@apply text-cta-sm md:text-cta;
+}
+
+.link {
+	@apply text-link-sm md:text-link;
+}
+
+/* Navigation */
+
+.nav-item {
+	@apply text-body text-moss transition-colors duration-200 hover:text-flint;
+}
+
+/* Sections */
+
+.section-2xl {
+	@apply py-[80px] lg:py-[160px];
+}

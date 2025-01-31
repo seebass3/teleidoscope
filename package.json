@@ -8,7 +8,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"typegen": "sanity typegen generate"
+		"typegen": "sanity schema extract --enforce-required-fields --path=./sanity/schema.json && sanity typegen generate"
 	},
 	"prettier": {
 		"plugins": [
@@ -28,17 +28,23 @@
 		"@types/react": "^18.3.12",
 		"@types/react-dom": "^18.3.1",
 		"@vercel/speed-insights": "^1.1.0",
+		"clsx": "^2.1.1",
 		"date-fns": "^3.6.0",
+		"focus-trap-react": "^11.0.3",
+		"motion": "^12.0.6",
 		"next": "^15.0.4",
 		"next-sanity": "^9.8.18",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
+		"react-use-rect": "^2.0.6",
+		"react-wrap-balancer": "^1.1.1",
 		"sanity": "^3.65.0",
 		"sonner": "^1.7.0",
 		"styled-components": "^6.1.13",
 		"typescript": "5.6.3"
 	},
 	"devDependencies": {
+		"@ianvs/prettier-plugin-sort-imports": "^4.4.0",
 		"autoprefixer": "^10.4.20",
 		"eslint": "^8.57.0",
 		"eslint-config-next": "^15.0.3",
