@@ -79,7 +79,7 @@ export default async function RootLayout({
 	return (
 		<html
 			lang="en"
-			className={`${sohne.variable} ${sohneMono.variable} ${sohneKraftig.variable} bg-offWhite text-black`}
+			className={`${sohne.variable} ${sohneMono.variable} ${sohneKraftig.variable} bg-offWhite font-body text-flint`}
 		>
 			<body>
 				<section className="min-h-screen pt-24">

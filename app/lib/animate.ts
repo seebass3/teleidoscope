@@ -19,6 +19,24 @@ export const expandAnimVariants = {
 	},
 }
 
+export const slideInAnimVariants = {
+	show: {
+		x: '0%',
+		transition: {
+			duration: 0.8,
+			delay: 0.1,
+			ease: [0.16, 1, 0.3, 1],
+		},
+	},
+	hide: {
+		x: '100%',
+		transition: {
+			duration: 0.6,
+			ease: [0.16, 1, 0.3, 1],
+		},
+	},
+}
+
 export const fadeAnimVariants = {
 	show: {
 		opacity: 1,
@@ -34,25 +52,36 @@ export const fadeAnimVariants = {
 	},
 }
 
-export const swipeAnimVariants = {
+export const navUlAnimVariants = {
 	show: {
 		opacity: 1,
-		x: ['-1rem', '0rem'],
+		transition: {
+			staggerChildren: 0.1,
+			delayChildren: 0.2,
+		},
+	},
+	hide: {
+		opacity: 0,
+	},
+}
+
+export const navLiAnimVariants = {
+	show: {
+		opacity: 1,
+		y: ['.5rem', '0rem'],
 		transition: {
 			x: {
 				duration: 0.8,
-				delay: 0.5,
 				ease: [0.16, 1, 0.3, 1],
 			},
 			opacity: {
 				duration: 0.2,
-				delay: 0.5,
 			},
 		},
 	},
 	hide: {
 		opacity: 0,
-		x: '-1rem',
+		y: '.5rem',
 		transition: {
 			x: {
 				duration: 0.8,

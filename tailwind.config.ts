@@ -6,57 +6,17 @@ export default {
 	theme: {
 		screens: {
 			sm: '640px',
-			md: '768px',
+			md: '728px',
 			lg: '1280px',
 		},
-		container: {
-			center: true,
-			padding: '2rem',
-		},
 		fontSize: {
-			// Hero Titles
-			'hero-lg': ['100px', '102px'],
-			'hero-md': ['72px', '73px'],
-			'hero-sm': ['40px', '43px'],
-
-			// H1 Titles
-			'h1-lg': ['72px', '74px'],
-			'h1-md': ['56px', '58px'],
-			'h1-sm': ['40px', '43px'],
-
-			// H2 Titles
-			'h2-lg': ['56px', '58px'],
-			'h2-md': ['48px', '50px'],
-			'h2-sm': ['40px', '43px'],
-
-			// H3 Titles
-			'h3-lg': ['32px', '35px'],
-			'h3-md': ['28px', '32px'],
-			'h3-sm': ['24px', '28px'],
-
-			// H4 Titles
-			h4: ['20px', '21px'],
-
-			// Body Copy
-			body: ['14px', '18px'],
-			'body-sm': ['16px', '20px'],
-
-			// Callouts
-			callout: ['12x', '14px'],
-			'callout-sm': ['14px', '18px'],
-
-			// Article
-			'article-lg': ['18px', '26px'],
-			'article-md': ['16px', '22px'],
-			'article-sm': ['16px', '20px'],
-
-			// CTAs
-			cta: ['12px', '13px'],
-			'cta-sm': ['14px', '15px'],
-
-			// Links
-			link: ['12px', '13px'],
-			'link-sm': ['14px', '15px'],
+			'3xl': ['var(--font-size-3xl)', 'var(--font-line-height-3xl)'],
+			'2xl': ['var(--font-size-2xl)', 'var(--font-line-height-2xl)'],
+			xl: ['var(--font-size-xl)', 'var(--font-line-height-xl)'],
+			lg: ['var(--font-size-lg)', 'var(--font-line-height-lg)'],
+			md: ['var(--font-size-md)', 'var(--font-line-height-md)'],
+			sm: ['var(--font-size-sm)', 'var(--font-line-height-sm)'],
+			micro: ['var(--font-size-micro)', 'var(--font-line-height-micro)'],
 		},
 		fontFamily: {
 			body: ['var(--font-family-text)'],
@@ -79,6 +39,17 @@ export default {
 			},
 			spacing: {
 				'header-height': 'var(--header-height)',
+				'2xl': 'var(--spacing-2xl)',
+				xl: 'var(--spacing-xl)',
+				lg: 'var(--spacing-lg)',
+				md: 'var(--spacing-md)',
+				sm: 'var(--spacing-sm)',
+				xs: 'var(--spacing-xs)',
+				micro: 'var(--spacing-micro)',
+				nano: 'var(--spacing-nano)',
+			},
+			lineHeight: {
+				cta: 'var(--font-line-height-cta)',
 			},
 		},
 	},

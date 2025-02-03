@@ -5,58 +5,126 @@
 @layer base {
 	:root {
 		--header-height: 96px;
+		--font-size-3xl: 40px;
+		--font-size-2xl: 40px;
+		--font-size-xl: 40px;
+		--font-size-lg: 24px;
+		--font-size-md: 20px;
+		--font-size-sm: 16px;
+		--font-size-micro: 14px;
+		--font-size-article: 16px;
+		--font-line-height-3xl: 43px;
+		--font-line-height-2xl: 43px;
+		--font-line-height-xl: 43px;
+		--font-line-height-lg: 28px;
+		--font-line-height-md: 22px;
+		--font-line-height-sm: 20px;
+		--font-line-height-micro: 18px;
+		--font-line-height-article: 20px;
+		--font-line-height-cta: 15px;
+		--spacing-2xl: 80px;
+		--spacing-xl: 40px;
+		--spacing-lg: 30px;
+		--spacing-md: 20px;
+		--spacing-sm: 16px;
+		--spacing-xs: 16px;
+		--spacing-micro: 16px;
+		--spacing-nano: 8px;
+	}
+
+	@media (min-width: 768px) {
+		:root {
+			--font-size-3xl: 72px;
+			--font-size-2xl: 56px;
+			--font-size-xl: 48px;
+			--font-size-lg: 28px;
+			--font-size-sm: 14px;
+			--font-size-micro: 12px;
+			--font-line-height-3xl: 73px;
+			--font-line-height-2xl: 58px;
+			--font-line-height-xl: 50px;
+			--font-line-height-lg: 32px;
+			--font-line-height-md: 21px;
+			--font-line-height-sm: 18px;
+			--font-line-height-micro: 14px;
+			--font-line-height-article: 22px;
+			--font-line-height-cta: 13px;
+			--spacing-xl: 60px;
+			--spacing-lg: 40px;
+			--spacing-md: 32px;
+			--spacing-sm: 24px;
+			--spacing-xs: 20px;
+			--spacing-nano: 12px;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		:root {
+			--font-size-3xl: 100px;
+			--font-size-2xl: 72px;
+			--font-size-xl: 56px;
+			--font-size-lg: 32px;
+			--font-size-article: 18px;
+			--font-line-height-3xl: 102px;
+			--font-line-height-2xl: 74px;
+			--font-line-height-xl: 58px;
+			--font-line-height-lg: 35px;
+			--font-line-height-article: 26px;
+			--spacing-2xl: 160px;
+			--spacing-xl: 80px;
+			--spacing-lg: 60px;
+			--spacing-md: 40px;
+			--spacing-sm: 30px;
+			--spacing-micro: 24px;
+			--spacing-nano: 16px;
+		}
 	}
 }
 
-/* Typography */
-.hero {
-	@apply text-hero-sm md:text-hero-md lg:text-hero-lg;
-}
+@layer components {
+	.container-nav {
+		width: 100%;
+		padding-left: 20px;
+		padding-right: 20px;
+		margin-left: auto;
+		margin-right: auto;
+	}
 
-.h1 {
-	@apply text-h1-sm md:text-h1-md lg:text-h1-lg;
-}
+	@media (min-width: 768px) {
+		.container-nav {
+			padding-left: 40px;
+			padding-right: 40px;
+		}
+	}
 
-.h2 {
-	@apply text-h2-sm md:text-h2-md lg:text-h2-lg;
-}
+	@media (min-width: 1280px) {
+		.container-nav {
+			max-width: 1280px;
+			padding-left: 100px;
+			padding-right: 100px;
+		}
+	}
 
-.h3 {
-	@apply text-h3-sm md:text-h3-md lg:text-h3-lg;
-}
+	.container {
+		width: 100%;
+		padding-left: 10px;
+		padding-right: 20px;
+		margin-left: auto;
+		margin-right: auto;
+	}
 
-.h4 {
-	@apply text-h4;
-}
+	@media (min-width: 768px) {
+		.container {
+			padding-left: 25px;
+			padding-right: 40px;
+		}
+	}
 
-.body {
-	@apply text-body-sm md:text-body;
-}
-
-.callout {
-	@apply text-callout-sm md:text-callout;
-}
-
-.article {
-	@apply text-article-sm md:text-article-md lg:text-article-lg;
-}
-
-.cta {
-	@apply text-cta-sm md:text-cta;
-}
-
-.link {
-	@apply text-link-sm md:text-link;
-}
-
-/* Navigation */
-
-.nav-item {
-	@apply text-body text-moss transition-colors duration-200 hover:text-flint;
-}
-
-/* Sections */
-
-.section-2xl {
-	@apply py-[80px] lg:py-[160px];
+	@media (min-width: 1280px) {
+		.container {
+			max-width: 1280px;
+			padding-left: 85px;
+			padding-right: 100px;
+		}
+	}
 }

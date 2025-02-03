@@ -2,14 +2,27 @@ import {
 	expandAnimVariants,
 	fadeAnimVariants,
 	lineAnimVariants,
-	swipeAnimVariants,
+	navLiAnimVariants,
+	navUlAnimVariants,
 } from '@/app/lib/animate'
-import { clsx } from 'clsx'
+import { cn } from '@/app/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
+import ContactModal from './ContactModal'
 
-export default function DesktopNav() {
+interface DesktopNavProps {
+	navItems: {
+		title: string
+		subItems?: {
+			title: string
+			href: string
+		}[]
+		href: string
+	}[]
+}
+
+export default function DesktopNav({ navItems }: DesktopNavProps) {
 	const [isOpen, setIsOpen] = useState(false)
 	const offeringsRef = useRef<HTMLButtonElement>(null)
 	const lastItemRef = useRef<HTMLLIElement>(null)
@@ -55,61 +68,53 @@ export default function DesktopNav() {
 
 	return (
 		<>
-			<ul role="list" className="flex items-center gap-4 md:gap-6">
-				<li>
-					<AnimatePresence>
-						{isOpen && (
-							<motion.div
-								className="absolute z-50 w-[1px] bg-moss"
-								style={{ left: leftPosition - 15 }}
-								initial="hide"
-								animate="show"
-								exit="hide"
-								variants={lineAnimVariants(lineHeight)}
-							/>
+			<ul role="list" className="flex w-full items-center gap-4 md:gap-6">
+				{navItems.map((item) => (
+					<li key={item.title}>
+						{item.subItems ? (
+							<>
+								<AnimatePresence>
+									{isOpen && (
+										<motion.div
+											className="absolute z-50 bg-moss"
+											style={{ width: '1px', left: leftPosition - 15 }}
+											initial="hide"
+											animate="show"
+											exit="hide"
+											variants={lineAnimVariants(lineHeight)}
+										/>
+									)}
+								</AnimatePresence>
+								<button
+									className="nav-item flex items-center gap-1"
+									ref={offeringsRef}
+									onClick={toggleMegaNav}
+								>
+									Offerings
+									<ChevronDown
+										className={cn(
+											'mt-1 h-4 w-4 transition-all duration-200',
+											isOpen ? 'rotate-180 transform text-flint' : 'text-moss',
+										)}
+									/>
+								</button>
+							</>
+						) : (
+							<Link className="nav-item" href={item.href} onClick={closeMenu}>
+								{item.title}
+							</Link>
 						)}
-					</AnimatePresence>
-					<button
-						className="nav-item flex items-center gap-1"
-						ref={offeringsRef}
-						onClick={toggleMegaNav}
-					>
-						Offerings
-						<ChevronDown
-							className={clsx(
-								'mt-1 h-4 w-4 transition-all duration-200',
-								isOpen ? 'rotate-180 transform text-flint' : 'text-moss',
-							)}
-						/>
-					</button>
-				</li>
-				<li>
-					<Link className="nav-item" href="/about" onClick={closeMenu}>
-						Company
-					</Link>
-				</li>
-				<li>
-					<Link className="nav-item" href="/about" onClick={closeMenu}>
-						Updates
-					</Link>
-				</li>
-
-				<li className="sm:before:bg-gray-100 flex before:block sm:gap-4 sm:before:w-[1px] md:gap-6">
-					<Link
-						className="flex h-8 w-32 items-center justify-center gap-2 bg-solar p-1 text-white transition-colors duration-200 hover:bg-flint"
-						href="https://github.com/sanity-io/sanity-template-nextjs-clean"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<span className="">Get In touch</span>
-					</Link>
-				</li>
+					</li>
+				))}
 			</ul>
+
+			<ContactModal closeMenu={closeMenu} />
+
 			<AnimatePresence mode="wait">
 				{isOpen && (
 					<>
 						<motion.div
-							className="fixed left-0 top-header-height z-40 w-full bg-white"
+							className="fixed left-0 top-header-height z-30 w-full bg-white"
 							variants={expandAnimVariants}
 							initial="hide"
 							animate="show"
@@ -119,15 +124,15 @@ export default function DesktopNav() {
 								className="max-w-screen-xl relative mx-auto h-full w-full"
 								style={{ left: leftPosition }}
 							>
-								<motion.div
-									className="pb-12 pt-2"
-									variants={swipeAnimVariants}
-									initial="hide"
-									animate="show"
-									exit="hide"
-								>
-									<ul className="flex flex-col gap-5">
-										<li>
+								<div className="pb-12 pt-2">
+									<motion.ul
+										className="flex w-full flex-col gap-5"
+										variants={navUlAnimVariants}
+										initial="hide"
+										animate="show"
+										exit="hide"
+									>
+										<motion.li variants={navLiAnimVariants}>
 											<Link
 												className="nav-item"
 												href="/about"
@@ -135,8 +140,8 @@ export default function DesktopNav() {
 											>
 												Algorithms
 											</Link>
-										</li>
-										<li>
+										</motion.li>
+										<motion.li variants={navLiAnimVariants}>
 											<Link
 												className="nav-item"
 												href="/about"
@@ -144,8 +149,8 @@ export default function DesktopNav() {
 											>
 												Camera Systems
 											</Link>
-										</li>
-										<li>
+										</motion.li>
+										<motion.li variants={navLiAnimVariants}>
 											<Link
 												className="nav-item"
 												href="/about"
@@ -153,8 +158,8 @@ export default function DesktopNav() {
 											>
 												Extended Reality Systems
 											</Link>
-										</li>
-										<li ref={lastItemRef}>
+										</motion.li>
+										<motion.li variants={navLiAnimVariants} ref={lastItemRef}>
 											<Link
 												className="nav-item"
 												href="/about"
@@ -162,13 +167,13 @@ export default function DesktopNav() {
 											>
 												Endpoint Accuracy Systems
 											</Link>
-										</li>
-									</ul>
-								</motion.div>
+										</motion.li>
+									</motion.ul>
+								</div>
 							</div>
 						</motion.div>
 						<motion.div
-							className="fixed inset-0 top-header-height z-30 bg-black/50"
+							className="fixed inset-0 top-header-height z-20 bg-flint/45"
 							variants={fadeAnimVariants}
 							initial="hide"
 							animate="show"
@@ -182,18 +187,18 @@ export default function DesktopNav() {
 	)
 }
 
-function ChevronDown({ className }: { className: string }) {
+const ChevronDown = ({ className }: { className: string }) => {
 	return (
 		<svg
 			className={className}
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"
-			stroke-width="2"
+			strokeWidth="2"
 			stroke="currentColor"
 			fill="none"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		>
 			{' '}
 			<path stroke="none" d="M0 0h24v24H0z" />{' '}
