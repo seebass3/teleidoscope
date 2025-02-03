@@ -57,7 +57,7 @@ export default function ContactModal({ closeMenu }: ContactModalProps) {
 								<div className="mt-xl flex flex-col border-l border-sand/35 pl-[15px]">
 									<div className="mb-sm flex items-center justify-between">
 										<h2 className="text-xl tracking-[-1.12px] text-solar">
-											Let's Talk
+											Let&#39;s Talk
 										</h2>
 										<Corner />
 									</div>
