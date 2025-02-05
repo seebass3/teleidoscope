@@ -1,5 +1,3 @@
-'use client'
-
 import Logo from '@/app/logo-dark.svg'
 import Image from 'next/image'
 import Link from 'next/link'
