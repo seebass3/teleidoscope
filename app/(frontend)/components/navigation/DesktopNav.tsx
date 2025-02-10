@@ -22,10 +22,17 @@ interface DesktopNavProps {
 		}[]
 		href: string
 	}[]
+	isOpen: boolean
+	setIsOpen: (isOpen: boolean) => void
+	onClose: () => void
 }
 
-export default function DesktopNav({ navItems }: DesktopNavProps) {
-	const [isOpen, setIsOpen] = useState(false)
+export default function DesktopNav({
+	navItems,
+	isOpen,
+	setIsOpen,
+	onClose,
+}: DesktopNavProps) {
 	const offeringsRef = useRef<HTMLButtonElement>(null)
 	const lastItemRef = useRef<HTMLLIElement>(null)
 	const [leftPosition, setLeftPosition] = useState(0)
@@ -60,17 +67,18 @@ export default function DesktopNav({ navItems }: DesktopNavProps) {
 		}
 	}, [isOpen])
 
-	const toggleMegaNav = () => {
-		setIsOpen(!isOpen)
-	}
+	const toggleMegaNav = () => setIsOpen(!isOpen)
 
 	const closeMenu = () => {
-		setIsOpen(false)
+		onClose()
 	}
 
 	return (
 		<>
-			<ul role="list" className="flex w-full items-center gap-4 md:gap-6">
+			<ul
+				role="list"
+				className="flex w-full items-center gap-4 max-lg:hidden md:gap-6"
+			>
 				{navItems.map((item) => (
 					<li key={item.title}>
 						{item.subItems ? (

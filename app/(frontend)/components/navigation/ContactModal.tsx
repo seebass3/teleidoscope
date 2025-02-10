@@ -32,7 +32,7 @@ export default function ContactModal({ closeMenu }: ContactModalProps) {
 		<>
 			<button
 				onClick={toggleModal}
-				className="flex h-[31px] w-[125px] shrink-0 items-center justify-center gap-2 bg-solar px-3 py-2 font-action text-micro uppercase text-white"
+				className="flex h-9 w-[125px] shrink-0 items-center justify-center gap-2 bg-solar px-3 py-2 font-action text-micro uppercase text-white lg:h-[31px]"
 			>
 				Get In touch
 			</button>

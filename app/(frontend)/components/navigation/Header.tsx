@@ -1,9 +1,25 @@
+'use client'
+
 import Logo from '@/app/logo-dark.svg'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import DesktopNav from './DesktopNav'
+import MobileNav from './MobileNav'
 
 export default function Header() {
+	const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+	useEffect(() => {
+		if (isMenuOpen) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'auto'
+		}
+	}, [isMenuOpen])
+
+	const closeMenu = () => setIsMenuOpen(false)
+
 	const navItems = [
 		{
 			title: 'Offerings',
@@ -49,8 +65,19 @@ export default function Header() {
 						/>
 					</Link>
 
-					<nav className="flex w-full flex-shrink justify-between">
-						<DesktopNav navItems={navItems} />
+					<nav className="flex w-full flex-shrink items-center justify-end lg:justify-between">
+						<DesktopNav
+							navItems={navItems}
+							isOpen={isMenuOpen}
+							setIsOpen={setIsMenuOpen}
+							onClose={closeMenu}
+						/>
+						<MobileNav
+							navItems={navItems}
+							isOpen={isMenuOpen}
+							setIsOpen={setIsMenuOpen}
+							onClose={closeMenu}
+						/>
 					</nav>
 				</div>
 			</div>
