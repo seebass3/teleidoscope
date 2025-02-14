@@ -46,27 +46,29 @@ export default function ContactModal({ closeMenu }: ContactModalProps) {
 							exit="hide"
 							variants={slideInAnimVariants}
 						>
-							<div className="container flex h-full w-full flex-col pb-xl pt-11">
-								<button
-									className="flex self-end"
-									aria-label="Close"
-									onClick={closeModal}
-								>
-									<Close />
-								</button>
-								<div className="mt-xl flex flex-col border-l border-sand/35 pl-[15px]">
-									<div className="mb-sm flex items-center justify-between">
-										<h2 className="text-xl tracking-[-1.12px] text-solar">
-											Let&#39;s Talk
-										</h2>
-										<Corner />
+							<div className="container">
+								<div className="flex h-full w-full flex-col pb-xl pt-11">
+									<button
+										className="flex self-end"
+										aria-label="Close"
+										onClick={closeModal}
+									>
+										<Close />
+									</button>
+									<div className="pl-line mt-xl flex flex-col border-l border-sand/35">
+										<div className="mb-sm flex items-center justify-between">
+											<h2 className="text-xl tracking-[-1.12px] text-solar">
+												Let&#39;s Talk
+											</h2>
+											<Corner />
+										</div>
+										<p className="text-sm text-sand">
+											<Balancer>
+												Get in touch with our team to discuss how our innovative
+												approaches can advance your mission-critical objectives.
+											</Balancer>
+										</p>
 									</div>
-									<p className="text-sm text-sand">
-										<Balancer>
-											Get in touch with our team to discuss how our innovative
-											approaches can advance your mission-critical objectives.
-										</Balancer>
-									</p>
 								</div>
 							</div>
 						</motion.div>

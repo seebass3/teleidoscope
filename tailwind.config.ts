@@ -6,8 +6,9 @@ export default {
 	theme: {
 		screens: {
 			sm: '640px',
-			md: '728px',
-			lg: '1280px',
+			md: '768px',
+			lg: '1024px',
+			xl: '1280px',
 		},
 		fontSize: {
 			'3xl': ['var(--font-size-3xl)', 'var(--font-line-height-3xl)'],
@@ -47,6 +48,7 @@ export default {
 				xs: 'var(--spacing-xs)',
 				micro: 'var(--spacing-micro)',
 				nano: 'var(--spacing-nano)',
+				line: 'var(--spacing-line)',
 			},
 			lineHeight: {
 				cta: 'var(--font-line-height-cta)',

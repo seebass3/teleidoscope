@@ -79,14 +79,12 @@ export default async function RootLayout({
 	return (
 		<html
 			lang="en"
-			className={`${sohne.variable} ${sohneMono.variable} ${sohneKraftig.variable} bg-offWhite font-body text-flint`}
+			className={`${sohne.variable} ${sohneMono.variable} ${sohneKraftig.variable} bg-offWhite font-body text-sm text-flint`}
 		>
-			<body>
-				<section className="min-h-screen pt-24">
-					<Header />
-					<main className="">{children}</main>
-					<Footer />
-				</section>
+			<body className="min-h-screen pt-header-height">
+				<Header />
+				<main className="">{children}</main>
+				<Footer />
 				<Toaster />
 				{isDraftMode && (
 					<>

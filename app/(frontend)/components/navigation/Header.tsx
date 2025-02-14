@@ -54,18 +54,18 @@ export default function Header() {
 	]
 
 	return (
-		<header className="fixed inset-0 z-40 flex h-header-height items-center bg-white">
-			<div className="container-nav">
-				<div className="flex items-center gap-[90px]">
+		<header className="fixed inset-0 z-40 flex h-fit items-center bg-white md:h-header-height">
+			<div className="container-header">
+				<div className="flex items-center gap-[65px] md:mt-[42px] lg:mt-[44px] lg:justify-between">
 					<Link className="flex shrink-0" href="/">
 						<Image
-							className="inline-block"
+							className="inline-block lg:h-[23px] lg:w-[158px]"
 							src={Logo}
 							alt="Teleidoscope Logo"
 						/>
 					</Link>
 
-					<nav className="flex w-full flex-shrink items-center justify-end lg:justify-between">
+					<div className="xl:w-[922px] flex w-full flex-shrink items-center justify-end lg:justify-between">
 						<DesktopNav
 							navItems={navItems}
 							isOpen={isMenuOpen}
@@ -78,7 +78,7 @@ export default function Header() {
 							setIsOpen={setIsMenuOpen}
 							onClose={closeMenu}
 						/>
-					</nav>
+					</div>
 				</div>
 			</div>
 		</header>
