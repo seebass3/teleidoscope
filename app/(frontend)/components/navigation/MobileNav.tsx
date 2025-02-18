@@ -1,6 +1,10 @@
 'use client'
 
-import { expandAnimVariants } from '@/app/lib/animate'
+import {
+	expandAnimVariants,
+	navLiAnimVariants,
+	navUlAnimVariants,
+} from '@/app/lib/animate'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { useEffect } from 'react'
@@ -69,17 +73,20 @@ export default function MobileNav({
 							<div className="container-mobileNav">
 								<div className="flex h-full w-full flex-col pb-xl pt-lg">
 									<nav>
-										<ul className="space-y-md">
+										<motion.ul
+											className="group flex flex-col gap-y-md"
+											variants={navUlAnimVariants}
+											initial="hide"
+											animate="show"
+											exit="hide"
+										>
 											{navItems.map((item) => (
 												<motion.li
 													key={item.title}
-													initial={{ opacity: 0, x: 20 }}
-													animate={{ opacity: 1, x: 0 }}
-													exit={{ opacity: 0, x: 20 }}
-													transition={{ duration: 0.2 }}
+													variants={navLiAnimVariants}
 												>
 													{item.subItems ? (
-														<div className="pl-line space-y-sm border-l border-moss/35">
+														<div className="flex flex-col gap-y-sm border-l border-moss/35 pl-line">
 															<p className="text-lg font-normal tracking-[-0.56px]">
 																{item.title}
 															</p>
@@ -88,7 +95,7 @@ export default function MobileNav({
 																	<li key={subItem.title}>
 																		<Link
 																			href={subItem.href}
-																			className="text-sm text-moss transition-colors duration-200 ease-in-out hover:text-flint"
+																			className="text-sm text-flint transition-colors duration-200 ease-in-out hover:!text-flint group-hover:text-moss"
 																			onClick={closeMenu}
 																		>
 																			{subItem.title}
@@ -100,7 +107,7 @@ export default function MobileNav({
 													) : (
 														<Link
 															href={item.href}
-															className="pl-line text-lg tracking-[-0.56px] text-moss transition-colors duration-200 ease-in-out hover:text-flint"
+															className="p-line text-lg tracking-[-0.56px] text-flint transition-colors duration-200 ease-in-out hover:!text-flint group-hover:text-moss"
 															onClick={closeMenu}
 														>
 															{item.title}
@@ -108,7 +115,7 @@ export default function MobileNav({
 													)}
 												</motion.li>
 											))}
-										</ul>
+										</motion.ul>
 									</nav>
 									<div className="mt-auto md:hidden">
 										<ContactModal closeMenu={closeMenu} />

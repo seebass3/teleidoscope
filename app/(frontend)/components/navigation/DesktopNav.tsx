@@ -38,6 +38,7 @@ export default function DesktopNav({
 	const [leftPosition, setLeftPosition] = useState(0)
 	const [lineHeight, setLineHeight] = useState(0)
 
+	//Line doesn't appear if I go from mobile nav to desktopp nav
 	const updateLeftPosition = () => {
 		if (offeringsRef.current) {
 			setLeftPosition(offeringsRef.current.getBoundingClientRect().left)
@@ -78,7 +79,7 @@ export default function DesktopNav({
 	return (
 		<>
 			<nav className="max-lg:hidden">
-				<ul role="list" className="flex w-full items-center gap-[50px]">
+				<ul role="list" className="group flex w-full items-center gap-[50px]">
 					{navItems.map((item) => (
 						<li key={item.title}>
 							{item.subItems ? (
@@ -86,7 +87,7 @@ export default function DesktopNav({
 									<AnimatePresence>
 										{isOpen && (
 											<motion.div
-												className="absolute z-50 bg-moss"
+												className="absolute z-50 bg-moss opacity-35"
 												style={{ width: '1px', left: leftPosition - 15 }}
 												initial="hide"
 												animate="show"
@@ -97,8 +98,8 @@ export default function DesktopNav({
 									</AnimatePresence>
 									<button
 										className={cn(
-											'flex items-center gap-1',
-											isOpen && 'text-flint',
+											'transition-color flex items-center gap-1 duration-200 hover:!text-flint group-hover:text-moss',
+											isOpen && '!text-flint',
 										)}
 										ref={offeringsRef}
 										onClick={toggleMegaNav}
@@ -106,14 +107,21 @@ export default function DesktopNav({
 										{item.title}
 										<ChevronDown
 											className={cn(
-												'mt-1 h-4 w-4 transition-all duration-200',
+												'mt-1 h-4 w-4 transition-transform duration-200',
 												isOpen && 'rotate-180 transform',
 											)}
 										/>
 									</button>
 								</>
 							) : (
-								<Link className="" href={item.href} onClick={closeMenu}>
+								<Link
+									className={cn(
+										'transition-color duration-200 hover:!text-flint group-hover:text-moss',
+										isOpen && 'text-moss',
+									)}
+									href={item.href}
+									onClick={closeMenu}
+								>
 									{item.title}
 								</Link>
 							)}
@@ -141,7 +149,7 @@ export default function DesktopNav({
 								style={{ left: leftPosition }}
 							>
 								<motion.ul
-									className="flex w-full flex-col gap-xs"
+									className="flex w-full flex-col gap-xs text-moss"
 									variants={navUlAnimVariants}
 									initial="hide"
 									animate="show"
@@ -161,7 +169,7 @@ export default function DesktopNav({
 																? lastItemRef
 																: undefined
 														}
-														className=""
+														className="transition-color duration-200 hover:text-flint"
 														href="/about"
 														onClick={closeMenu}
 													>
