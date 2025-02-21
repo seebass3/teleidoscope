@@ -33,6 +33,7 @@ export default {
 			slate: '#324e53',
 			flint: '#1f2424',
 			solar: '#ff6d00',
+			transparent: 'transparent',
 		},
 		extend: {
 			boxShadow: {

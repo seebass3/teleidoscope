@@ -12,8 +12,25 @@ export const expandAnimVariants = {
 	hide: {
 		height: 0,
 		transition: {
-			duration: 0.6,
+			duration: 0.8,
 			delay: 0.1,
+			ease: [0.16, 1, 0.3, 1],
+		},
+	},
+}
+
+export const logoTransitionVariants = {
+	show: {
+		y: 0,
+		transition: {
+			duration: 0.4,
+			ease: [0.16, 1, 0.3, 1],
+		},
+	},
+	hide: {
+		y: '100%',
+		transition: {
+			duration: 0.4,
 			ease: [0.16, 1, 0.3, 1],
 		},
 	},
@@ -37,6 +54,24 @@ export const slideInAnimVariants = {
 	},
 }
 
+export const slideDownAnimVariants = {
+	show: {
+		y: '0%',
+		transition: {
+			duration: 0.8,
+			delay: 0.1,
+			ease: [0.16, 1, 0.3, 1],
+		},
+	},
+	hide: {
+		y: '-100%',
+		transition: {
+			duration: 0.6,
+			ease: [0.16, 1, 0.3, 1],
+		},
+	},
+}
+
 export const fadeAnimVariants = {
 	show: {
 		opacity: 1,
@@ -48,6 +83,24 @@ export const fadeAnimVariants = {
 		opacity: 0,
 		transition: {
 			duration: 0.2,
+		},
+	},
+}
+
+export const slowFadeAnimVariants = {
+	show: {
+		opacity: 1,
+		transition: {
+			duration: 0.6,
+			delay: 0.8,
+			ease: [0.16, 1, 0.3, 1],
+		},
+	},
+	hide: {
+		opacity: 0,
+		transition: {
+			duration: 0.6,
+			ease: [0.16, 1, 0.3, 1],
 		},
 	},
 }
