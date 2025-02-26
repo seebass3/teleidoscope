@@ -86,7 +86,6 @@ export default async function RootLayout({
 			<body className="min-h-screen">
 				<Header />
 				{modal}
-				<div id="modal-root" />
 				<main className="pt-header-height">{children}</main>
 				<Footer />
 				<Toaster />

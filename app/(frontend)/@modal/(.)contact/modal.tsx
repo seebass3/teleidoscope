@@ -13,15 +13,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { type ElementRef, useEffect, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
 
 export function Modal({ children }: { children: React.ReactNode }) {
 	const router = useRouter()
 	const dialogRef = useRef<ElementRef<'dialog'>>(null)
 	const [isOpen, setIsOpen] = useState(false)
+	const [mounted, setMounted] = useState(false)
 	const { isMobile, isTablet } = useScreenDetect()
 
 	useEffect(() => {
+		setMounted(true)
 		if (!dialogRef.current?.open) {
 			dialogRef.current?.showModal()
 			setIsOpen(true)
@@ -33,6 +34,8 @@ export function Modal({ children }: { children: React.ReactNode }) {
 	}
 
 	useEffect(() => {
+		if (!mounted) return
+
 		const handleEscapeKey = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
 				event.preventDefault()
@@ -44,9 +47,9 @@ export function Modal({ children }: { children: React.ReactNode }) {
 		return () => {
 			document.removeEventListener('keydown', handleEscapeKey)
 		}
-	}, [])
+	}, [mounted, onDismiss])
 
-	return createPortal(
+	return (
 		<dialog className="backdrop:bg-transparent" ref={dialogRef}>
 			<AnimatePresence mode="wait" onExitComplete={() => router.back()}>
 				{isOpen && (
@@ -137,12 +140,12 @@ export function Modal({ children }: { children: React.ReactNode }) {
 							initial="hide"
 							animate="show"
 							exit="hide"
+							onClick={onDismiss}
 						/>
 					</>
 				)}
 			</AnimatePresence>
-		</dialog>,
-		document.getElementById('modal-root')!,
+		</dialog>
 	)
 }
 
