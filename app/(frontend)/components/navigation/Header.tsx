@@ -40,7 +40,7 @@ export default function Header() {
 	]
 
 	return (
-		<header className="fixed inset-0 z-40 flex h-fit items-center bg-white md:h-header-height">
+		<header className="fixed inset-0 z-40 flex h-fit h-header-height items-center bg-white">
 			<div className="container-header">
 				<DesktopNav navItems={navItems} logo={Logo} />
 				<MobileNav navItems={navItems} logo={Logo} badge={Badge} />

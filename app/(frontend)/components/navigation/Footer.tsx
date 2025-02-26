@@ -96,6 +96,7 @@ export default function Footer() {
 									<li>
 										<Link
 											href="/contact"
+											scroll={false}
 											className="transition-colors duration-300 hover:text-solar"
 										>
 											Get In Touch
