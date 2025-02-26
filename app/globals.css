@@ -169,4 +169,20 @@
 			padding-bottom: var(--spacing-xl);
 		}
 	}
+
+	.underlined-link {
+		color: #324e53;
+		width: fit-content;
+		height: fit-content;
+		text-transform: uppercase;
+		font-family: var(--font-family-action);
+		font-size: var(--font-size-micro);
+		line-height: var(--font-line-height-cta);
+		text-decoration-line: underline;
+		text-decoration-style: solid;
+		text-decoration-skip-ink: none;
+		text-decoration-thickness: auto;
+		text-underline-offset: auto;
+		text-underline-position: from-font;
+	}
 }

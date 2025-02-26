@@ -1,10 +1,10 @@
-import { ContactForm } from '../../components/contact/ContactForm'
+import { ContactFormModal } from '../../components/contact/ContactFormModal'
 import { Modal } from './modal'
 
-export default function Page() {
+export default async function Page() {
 	return (
 		<Modal>
-			<ContactForm />
+			<ContactFormModal />
 		</Modal>
 	)
 }

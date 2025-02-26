@@ -42,3 +42,9 @@ next-env.d.ts
 .env.local
 .env.local.*
 !.env.local.example
+# next-video
+y/*
+!y/*.json
+!y/*.js
+!y/*.ts
+public/_next-video

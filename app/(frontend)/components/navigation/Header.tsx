@@ -1,7 +1,7 @@
 'use client'
 
-import Badge from '@/app/badge-dark.svg'
-import Logo from '@/app/logo-dark.svg'
+import Badge from '@/branding/badge-dark.svg'
+import Logo from '@/branding/logo-dark.svg'
 import DesktopNav from './DesktopNav'
 import MobileNav from './MobileNav'
 
@@ -31,7 +31,7 @@ export default function Header() {
 		},
 		{
 			title: 'Company',
-			href: '/company',
+			href: '/about',
 		},
 		{
 			title: 'Updates',

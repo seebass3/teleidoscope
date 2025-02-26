@@ -109,7 +109,7 @@ export default function MobileNav({ navItems, logo, badge }: MobileNavProps) {
 						</AnimatePresence>
 					</Link>
 					<div className="flex w-full flex-shrink items-center justify-end gap-x-2">
-						<Link href="/contact" className="max-md:hidden">
+						<Link href="/contact" className="w-fit max-md:hidden">
 							<Button size="small">Get In touch</Button>
 						</Link>
 						<button
@@ -219,7 +219,7 @@ export default function MobileNav({ navItems, logo, badge }: MobileNavProps) {
 													animate={{ opacity: 1, transition: { delay: 0.8 } }}
 													exit={{ opacity: 0, transition: { delay: 0 } }}
 												>
-													<Link href="/contact" className="md:hidden">
+													<Link href="/contact" className="w-fit md:hidden">
 														<Button size="small">Get In touch</Button>
 													</Link>
 												</motion.div>

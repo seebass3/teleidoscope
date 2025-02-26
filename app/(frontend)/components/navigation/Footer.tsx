@@ -1,4 +1,4 @@
-import Logo from '@/app/logo-footer.svg'
+import Logo from '@/branding/logo-light.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -8,11 +8,13 @@ export default function Footer() {
 			<div className="container-footer">
 				<div className="flex flex-col flex-wrap max-lg:gap-y-2xl lg:flex-row lg:justify-between lg:gap-x-[60px] xl:gap-x-[138px]">
 					<div className="flex max-w-[612px] flex-1 flex-col gap-y-[29px] md:gap-y-[24px] lg:max-w-[499px] lg:gap-y-[29px]">
-						<Image
-							className="inline-block h-auto w-full"
-							src={Logo}
-							alt="Teleidoscope Logo"
-						/>
+						<Link href="/">
+							<Image
+								className="inline-block h-auto w-full"
+								src={Logo}
+								alt="Teleidoscope Logo"
+							/>
+						</Link>
 						<p className="text-moss">
 							Advanced tracking, targeting, and
 							<br />

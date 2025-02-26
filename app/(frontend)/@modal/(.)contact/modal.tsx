@@ -1,13 +1,13 @@
 'use client'
 
-import Badge from '@/app/badge-light.svg'
 import {
 	fadeAnimVariants,
 	slideDownAnimVariants,
 	slideInAnimVariants,
 } from '@/app/lib/animate'
 import { useScreenDetect } from '@/app/lib/hooks/useScreenDetect'
-import Logo from '@/app/logo-light.svg'
+import Badge from '@/branding/badge-light.svg'
+import Logo from '@/branding/logo-light.svg'
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -47,11 +47,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
 	}, [])
 
 	return createPortal(
-		<dialog
-			className="backdrop:bg-transparent"
-			ref={dialogRef}
-			onClose={() => router.back()}
-		>
+		<dialog className="backdrop:bg-transparent" ref={dialogRef}>
 			<AnimatePresence mode="wait" onExitComplete={() => router.back()}>
 				{isOpen && (
 					<>

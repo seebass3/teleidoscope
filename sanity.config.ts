@@ -13,6 +13,7 @@ import {
 	type DocumentLocation,
 } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
+import { SanityLogo } from './branding/SanityLogo'
 import { dataset, projectId, studioUrl } from './sanity/lib/api'
 import { schemaTypes } from './sanity/schemaTypes'
 import { structure } from './sanity/structure'
@@ -32,9 +33,7 @@ const homeLocation = {
 function resolveHref(documentType?: string, slug?: string): string | undefined {
 	switch (documentType) {
 		case 'post':
-			return slug ? `/posts/${slug}` : undefined
-		case 'page':
-			return slug ? `/${slug}` : undefined
+			return slug ? `/news/${slug}` : undefined
 		default:
 			console.warn('Invalid document type:', documentType)
 			return undefined
@@ -45,6 +44,7 @@ function resolveHref(documentType?: string, slug?: string): string | undefined {
 export default defineConfig({
 	name: 'default',
 	title: 'Teleidoscope',
+	icon: () => SanityLogo,
 
 	basePath: studioUrl,
 	projectId,

@@ -156,7 +156,7 @@ export default function DesktopNav({ navItems, logo }: DesktopNavProps) {
 							</ul>
 						</nav>
 
-						<Link href="/contact">
+						<Link href="/contact" className="w-fit">
 							<Button size="small">Get In touch</Button>
 						</Link>
 
