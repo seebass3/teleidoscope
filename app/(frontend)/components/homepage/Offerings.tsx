@@ -38,7 +38,7 @@ export default function Offerings() {
 										tincidunt pulvinar tellus. Aenean ultricies vitae interdum
 										mauris maecenas mauris eget tristique facilisi.
 									</p>
-									<Link href="/algorithms" className="w-fit">
+									<Link href="/algorithms" className="max-sm:w-full sm:w-fit">
 										<Button
 											variant="outlineDark"
 											size="custom"
@@ -79,7 +79,10 @@ export default function Offerings() {
 										tristique facilisi. Nibh non aenean magna cursus blandit.
 										Lacus quis sed tincidunt pulvinar tellus.
 									</p>
-									<Link href="/camera-systems" className="w-fit">
+									<Link
+										href="/camera-systems"
+										className="max-sm:w-full sm:w-fit"
+									>
 										<Button
 											variant="outlineDark"
 											size="custom"
@@ -121,7 +124,10 @@ export default function Offerings() {
 										luctus in rhoncus vel pellentesque diam tempus. Tortor in
 										ullamcorper mattis mattis.
 									</p>
-									<Link href="/extended-reality-systems" className="w-fit">
+									<Link
+										href="/extended-reality-systems"
+										className="max-sm:w-full sm:w-fit"
+									>
 										<Button
 											variant="outlineDark"
 											size="custom"
@@ -162,7 +168,10 @@ export default function Offerings() {
 										amet turpis. Quis sit at non leo. Quam orci malesuada nunc
 										purus lacus enim.
 									</p>
-									<Link href="/endpoint-accuracy-systems" className="w-fit">
+									<Link
+										href="/endpoint-accuracy-systems"
+										className="max-sm:w-full sm:w-fit"
+									>
 										<Button
 											variant="outlineDark"
 											size="custom"
