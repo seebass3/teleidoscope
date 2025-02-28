@@ -41,6 +41,7 @@
 		"react-use-rect": "^2.0.6",
 		"react-wrap-balancer": "^1.1.1",
 		"sanity": "^3.65.0",
+		"sanity-plugin-iframe-pane": "^3.2.1",
 		"sharp": "^0.33.5",
 		"sonner": "^1.7.0",
 		"styled-components": "^6.1.13",

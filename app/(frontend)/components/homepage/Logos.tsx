@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 const logos = [
 	{
@@ -31,14 +32,34 @@ const logos = [
 ]
 
 export default function Logos() {
-	const duplicatedLogos = [...logos, ...logos]
+	const [logoSets, setLogoSets] = useState(3)
+
+	useEffect(() => {
+		const calculateLogoSets = () => {
+			const viewportWidth = window.innerWidth
+			const averageLogoWidth = 250
+			const totalLogos = logos.length
+			const visibleLogos = Math.ceil(viewportWidth / averageLogoWidth)
+
+			const setsNeeded = Math.max(3, Math.ceil((visibleLogos * 2) / totalLogos))
+			setLogoSets(setsNeeded)
+		}
+
+		calculateLogoSets()
+
+		window.addEventListener('resize', calculateLogoSets)
+		return () => window.removeEventListener('resize', calculateLogoSets)
+	}, [])
+
+	const multipliedLogos = Array(logoSets).fill(logos).flat()
+
 	return (
 		<section id="logos" className="overflow-hidden">
 			<div className="relative flex h-[120px] w-full md:h-[160px]">
 				<motion.div
 					className="flex"
 					animate={{
-						x: [0, '-50%'],
+						x: [0, `${-(100 / logoSets)}%`],
 					}}
 					transition={{
 						duration: 30,
@@ -46,7 +67,7 @@ export default function Logos() {
 						repeat: Infinity,
 					}}
 				>
-					{duplicatedLogos.map((logo, index) => (
+					{multipliedLogos.map((logo, index) => (
 						<div
 							key={index}
 							className="flex min-w-[187.5px] items-center justify-center border border-moss/35 px-10 py-[42px] md:min-w-[250px]"

@@ -8,7 +8,7 @@ import { postPagesSlugs, postQuery } from '@/sanity/lib/queries'
 import { resolveOpenGraphImage } from '@/sanity/lib/utils'
 import CoverImage from '../../components/CoverImage'
 import PortableText from '../../components/PortableText'
-import { MorePosts } from '../../components/Posts'
+import { RecentPosts } from '../../components/posts/RecentPosts'
 
 type Props = {
 	params: Promise<{ slug: string }>
@@ -74,9 +74,9 @@ export default async function PostPage(props: Props) {
 			<div className="">
 				<div className="container my-12 grid gap-12 lg:my-24">
 					<div>
-						<div className="mb-6 grid gap-6 border-b border-gray-100 pb-6">
+						<div className="border-gray-100 mb-6 grid gap-6 border-b pb-6">
 							<div className="flex max-w-3xl flex-col gap-6">
-								<h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-7xl">
+								<h2 className="text-4xl text-gray-900 sm:text-5xl lg:text-7xl font-bold tracking-tight">
 									{post.title}
 								</h2>
 							</div>
@@ -95,10 +95,12 @@ export default async function PostPage(props: Props) {
 					</div>
 				</div>
 			</div>
-			<div className="border-t border-gray-100">
+			<div className="border-gray-100 border-t">
 				<div className="container my-12 grid gap-12 lg:my-24">
 					<aside>
-						<Suspense>{await MorePosts({ skip: post._id, limit: 2 })}</Suspense>
+						<Suspense>
+							{await RecentPosts({ skip: post._id, limit: 2 })}
+						</Suspense>
 					</aside>
 				</div>
 			</div>

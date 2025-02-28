@@ -5,14 +5,15 @@
 'use client'
 
 import { visionTool } from '@sanity/vision'
-import { defineConfig, isDev } from 'sanity'
+import { SanityDocument, defineConfig, isDev } from 'sanity'
+import { Iframe } from 'sanity-plugin-iframe-pane'
 import {
 	defineDocuments,
 	defineLocations,
 	presentationTool,
 	type DocumentLocation,
 } from 'sanity/presentation'
-import { structureTool } from 'sanity/structure'
+import { DefaultDocumentNodeResolver, structureTool } from 'sanity/structure'
 import { SanityLogo } from './branding/SanityLogo'
 import { dataset, projectId, studioUrl } from './sanity/lib/api'
 import { schemaTypes } from './sanity/schemaTypes'
@@ -40,6 +41,41 @@ function resolveHref(documentType?: string, slug?: string): string | undefined {
 	}
 }
 
+function getPreviewUrl(doc: SanityDocument | any) {
+	const baseUrl = SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
+
+	if (!doc?.slug?.current) return baseUrl
+
+	switch (doc._type) {
+		case 'post':
+			return `${baseUrl}/news/${doc.slug.current}`
+		case 'page':
+			return `${baseUrl}/${doc.slug.current}`
+		default:
+			return baseUrl
+	}
+}
+
+const defaultDocumentNode: DefaultDocumentNodeResolver = (
+	S,
+	{ schemaType },
+) => {
+	switch (schemaType) {
+		case `post`:
+			return S.document().views([
+				S.view.form(),
+				S.view
+					.component(Iframe)
+					.options({
+						url: (doc: SanityDocument) => getPreviewUrl(doc),
+					})
+					.title('Preview'),
+			])
+		default:
+			return S.document().views([S.view.form()])
+	}
+}
+
 // Main Sanity configuration
 export default defineConfig({
 	name: 'default',
@@ -54,6 +90,7 @@ export default defineConfig({
 		structureTool({
 			title: 'Content',
 			structure,
+			defaultDocumentNode,
 		}),
 		presentationTool({
 			title: 'Visual Editing',
