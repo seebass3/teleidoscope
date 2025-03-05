@@ -12,13 +12,11 @@ export default function Process() {
 				<div className="flex flex-col gap-y-md lg:flex-row lg:border-l lg:border-moss/35 lg:pl-line">
 					<div className="flex basis-1/2 flex-col gap-y-sm max-lg:border-l max-lg:border-moss/35 max-lg:pl-line lg:pr-[15px]">
 						<div className="flex items-start justify-between">
-							<h1 className="text-2xl tracking-[-1.44px] text-slate">
-								How We Work
-							</h1>
+							<h1 className="text-slate">How We Work</h1>
 							<Corner />
 						</div>
 						<div className="flex flex-col gap-y-micro">
-							<p className="text-sm text-flint md:max-w-[551px] lg:max-w-[393px]">
+							<p className="text-flint md:max-w-[551px] lg:max-w-[393px]">
 								Modular, iterative approach at the speed of thought, all with a
 								user-centric mindset. Our agile methodology allows us to swiftly
 								develop and refine cutting-edge software solutions, continuously
@@ -37,10 +35,8 @@ export default function Process() {
 									<Image src={Icon1} alt="Rapid Concept to Prototype" />
 								</div>
 								<div className="flex flex-col gap-2">
-									<h4 className="text-md tracking-[-0.4px]">
-										Rapid concept to prototype
-									</h4>
-									<p className="text-sm text-slate">
+									<h4>Rapid concept to prototype</h4>
+									<p className="text-slate">
 										Justo a a lacus elementum. Scelerisque faucibus iaculis id
 										in erat vestibulum aliquam mi risus cras.
 									</p>
@@ -54,10 +50,8 @@ export default function Process() {
 									<Image src={Icon2} alt="Rapid Concept to Prototype" />
 								</div>
 								<div className="flex flex-col gap-2">
-									<h4 className="text-md tracking-[-0.4px]">
-										Modular approach
-									</h4>
-									<p className="text-sm text-slate">
+									<h4>Modular approach</h4>
+									<p className="text-slate">
 										Accumsan fringilla nunc convallis ut aenean sit lorem
 										mollis. Ornare elit neque proin varius.
 									</p>
@@ -71,10 +65,8 @@ export default function Process() {
 									<Image src={Icon3} alt="Rapid Concept to Prototype" />
 								</div>
 								<div className="flex flex-col gap-2">
-									<h4 className="text-md tracking-[-0.4px]">
-										Nimble, dedicated team
-									</h4>
-									<p className="text-sm text-slate">
+									<h4>Nimble, dedicated team</h4>
+									<p className="text-slate">
 										Cras quisque lectus sit auctor risus ultrices. Metus
 										habitasse maecenas accumsan tristique integer.
 									</p>

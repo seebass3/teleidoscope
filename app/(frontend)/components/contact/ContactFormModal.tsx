@@ -5,12 +5,10 @@ export function ContactFormModal() {
 	return (
 		<div className="flex flex-col border-l border-sand/35 pl-line">
 			<div className="mb-sm flex items-start justify-between">
-				<h2 className="text-xl tracking-[-1.12px] text-solar">
-					Let&#39;s Talk
-				</h2>
+				<h2 className="text-solar">Let&#39;s Talk</h2>
 				<Corner />
 			</div>
-			<p className="mb-md max-w-[325px] text-sm text-sand">
+			<p className="mb-md max-w-[325px] text-sand">
 				Get in touch with our team to discuss how our innovative approaches can
 				advance your mission- critical objectives.
 			</p>

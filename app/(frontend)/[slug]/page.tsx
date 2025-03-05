@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
-import Head from 'next/head'
 
+import AboutLayout from '@/app/(frontend)/components/pages/AboutLayout'
+import LegalLayout from '@/app/(frontend)/components/pages/LegalLayout'
+import OfferingLayout from '@/app/(frontend)/components/pages/OfferingLayout'
 import { sanityFetch } from '@/sanity/lib/live'
-import { getPageQuery, pagesSlugs } from '@/sanity/lib/queries'
+import { getPageQuery, pagesSlugs, settingsQuery } from '@/sanity/lib/queries'
+import { notFound } from 'next/navigation'
 
 type Props = {
 	params: Promise<{ slug: string }>
@@ -28,16 +31,28 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata(props: Props): Promise<Metadata> {
 	const params = await props.params
-	const { data: page } = await sanityFetch({
-		query: getPageQuery,
-		params,
-		// Metadata should never contain stega
-		stega: false,
-	})
+
+	// Fetch both page data and settings data in parallel
+	const [{ data: page }, { data: settings }] = await Promise.all([
+		sanityFetch({
+			query: getPageQuery,
+			params,
+			stega: false,
+		}),
+		sanityFetch({
+			query: settingsQuery,
+			stega: false,
+		}),
+	])
+
+	const description =
+		page?.heading ||
+		settings?.description ||
+		'State of the art tracking software and systems.'
 
 	return {
 		title: page?.name,
-		description: page?.heading,
+		description: description,
 	} satisfies Metadata
 }
 
@@ -48,28 +63,16 @@ export default async function Page(props: Props) {
 	])
 
 	if (!page?._id) {
-		return <div className="py-40"></div>
+		return notFound()
 	}
 
-	return (
-		<div className="my-12 lg:my-24">
-			<Head>
-				<title>{page.heading}</title>
-			</Head>
-			<div className="">
-				<div className="container">
-					<div className="border-b border-gray-100 pb-6">
-						<div className="max-w-3xl">
-							<h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-7xl">
-								{page.heading}
-							</h2>
-							<p className="mt-4 text-base font-light uppercase leading-relaxed text-gray-600 lg:text-lg">
-								{page.subheading}
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	)
+	// Render different layouts based on page type
+	switch (page.pageType) {
+		case 'offering':
+			return <OfferingLayout page={page} />
+		case 'about':
+			return <AboutLayout page={page} />
+		case 'legal':
+			return <LegalLayout page={page} />
+	}
 }

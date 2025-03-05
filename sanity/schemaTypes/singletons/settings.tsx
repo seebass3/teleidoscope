@@ -23,6 +23,7 @@ export default defineType({
 			description: 'Used for the <meta> description tag for SEO.',
 			title: 'Description',
 			type: 'text',
+			validation: (rule) => rule.required(),
 		}),
 		defineField({
 			name: 'ogImage',

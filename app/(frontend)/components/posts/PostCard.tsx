@@ -8,28 +8,26 @@ import Corner from '../Corner'
 
 export default function PostCard({
 	post,
-	index = 0,
+	isLargerImage = false,
+	className,
 }: {
 	post: PostType
-	index?: number
+	isLargerImage?: boolean
+	className?: string
 }) {
 	const { _id, title, slug, excerpt, coverImage } = post
-
-	const isLargerImage = index === 0 || index % 6 === 5
-	const isEven = index % 2 === 1
 
 	return (
 		<div
 			key={_id}
-			className={cn(
-				`flex h-fit flex-col gap-xs border-l border-moss/35 pl-line pr-line text-slate lg:border-l lg:pl-line ${isEven ? 'pr-0 md:border-none md:pl-0 lg:border-solid' : ''}`,
-			)}
+			className={cn('flex h-fit flex-col gap-xs text-slate', className)}
 		>
 			{coverImage && (
 				<div
 					className={`relative w-full overflow-hidden ${isLargerImage ? 'aspect-[4/3]' : 'aspect-[3/2]'}`}
 				>
 					<Image
+						className="object-cover"
 						fill={true}
 						alt={stegaClean(coverImage?.alt) || ''}
 						src={

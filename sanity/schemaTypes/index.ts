@@ -5,6 +5,7 @@ import blockContent from './objects/blockContent'
 import callToAction from './objects/callToAction'
 import infoSection from './objects/infoSection'
 import link from './objects/link'
+import media from './objects/media'
 import sanityImage from './objects/sanityImage'
 import settings from './singletons/settings'
 
@@ -19,6 +20,7 @@ export const schemaTypes = [
 	person,
 	// Objects
 	blockContent,
+	media,
 	sanityImage,
 	infoSection,
 	callToAction,

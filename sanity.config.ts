@@ -4,16 +4,19 @@
  */
 'use client'
 
+// Keep this import at the top to fix mux plugin bug
+import { DefaultDocumentNodeResolver, structureTool } from 'sanity/structure'
+
 import { visionTool } from '@sanity/vision'
 import { SanityDocument, defineConfig, isDev } from 'sanity'
 import { Iframe } from 'sanity-plugin-iframe-pane'
+import { muxInput } from 'sanity-plugin-mux-input'
 import {
 	defineDocuments,
 	defineLocations,
 	presentationTool,
 	type DocumentLocation,
 } from 'sanity/presentation'
-import { DefaultDocumentNodeResolver, structureTool } from 'sanity/structure'
 import { SanityLogo } from './branding/SanityLogo'
 import { dataset, projectId, studioUrl } from './sanity/lib/api'
 import { schemaTypes } from './sanity/schemaTypes'
@@ -155,6 +158,7 @@ export default defineConfig({
 			},
 		}),
 		// Additional plugins for enhanced functionality
+		muxInput(),
 		...(isDev ? [visionTool()] : []),
 	],
 

@@ -16,7 +16,6 @@ export function ContactFormPage({ variant, content }: ContactFormPageProps) {
 						<div className="flex items-start justify-between">
 							<h2
 								className={cn(
-									'text-xl tracking-[-1.12px]',
 									variant === 'primary' ? 'text-slate' : 'text-solar',
 								)}
 							>
@@ -24,7 +23,7 @@ export function ContactFormPage({ variant, content }: ContactFormPageProps) {
 							</h2>
 							<Corner />
 						</div>
-						<p className="text-sm text-slate md:max-w-[325px] lg:max-w-[288px]">
+						<p className="text-slate md:max-w-[325px] lg:max-w-[288px]">
 							{content}
 						</p>
 					</div>

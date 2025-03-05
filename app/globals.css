@@ -22,6 +22,11 @@
 		--font-line-height-micro: 18px;
 		--font-line-height-article: 20px;
 		--font-line-height-cta: 15px;
+		--letter-spacing-3xl: -0.8px;
+		--letter-spacing-2xl: -0.8px;
+		--letter-spacing-xl: -0.8px;
+		--letter-spacing-lg: -0.48px;
+		--letter-spacing-md: -0.4px;
 		--spacing-2xl: 80px;
 		--spacing-xl: 40px;
 		--spacing-lg: 30px;
@@ -51,6 +56,10 @@
 			--font-line-height-micro: 14px;
 			--font-line-height-article: 22px;
 			--font-line-height-cta: 13px;
+			--letter-spacing-3xl: -1.44px;
+			--letter-spacing-2xl: -1.12px;
+			--letter-spacing-xl: -0.96px;
+			--letter-spacing-lg: -0.56px;
 			--spacing-xl: 60px;
 			--spacing-lg: 40px;
 			--spacing-md: 32px;
@@ -73,6 +82,10 @@
 			--font-line-height-xl: 58px;
 			--font-line-height-lg: 35px;
 			--font-line-height-article: 26px;
+			--letter-spacing-3xl: -2px;
+			--letter-spacing-2xl: -1.44px;
+			--letter-spacing-xl: -1.12px;
+			--letter-spacing-lg: -0.64px;
 			--spacing-2xl: 160px;
 			--spacing-xl: 80px;
 			--spacing-lg: 60px;
@@ -81,6 +94,36 @@
 			--spacing-micro: 24px;
 			--spacing-nano: 16px;
 		}
+	}
+
+	.hero {
+		font-size: var(--font-size-3xl);
+		line-height: var(--font-line-height-3xl);
+		letter-spacing: var(--letter-spacing-3xl);
+	}
+
+	h1 {
+		font-size: var(--font-size-2xl);
+		line-height: var(--font-line-height-2xl);
+		letter-spacing: var(--letter-spacing-2xl);
+	}
+
+	h2 {
+		font-size: var(--font-size-xl);
+		line-height: var(--font-line-height-xl);
+		letter-spacing: var(--letter-spacing-xl);
+	}
+
+	h3 {
+		font-size: var(--font-size-lg);
+		line-height: var(--font-line-height-lg);
+		letter-spacing: var(--letter-spacing-lg);
+	}
+
+	h4 {
+		font-size: var(--font-size-md);
+		line-height: var(--font-line-height-md);
+		letter-spacing: var(--letter-spacing-md);
 	}
 }
 

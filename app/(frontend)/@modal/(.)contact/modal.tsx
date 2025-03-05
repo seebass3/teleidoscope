@@ -12,7 +12,13 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { type ElementRef, useEffect, useRef, useState } from 'react'
+import {
+	type ElementRef,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react'
 
 export function Modal({ children }: { children: React.ReactNode }) {
 	const router = useRouter()
@@ -29,9 +35,9 @@ export function Modal({ children }: { children: React.ReactNode }) {
 		}
 	}, [])
 
-	function onDismiss() {
+	const onDismiss = useCallback(() => {
 		setIsOpen(false)
-	}
+	}, [])
 
 	useEffect(() => {
 		if (!mounted) return

@@ -16,8 +16,8 @@ export default function Offerings() {
 			<div className="container">
 				<div className="flex w-full items-start justify-between border-l border-moss/35 pl-line max-lg:flex-col">
 					<div className="flex flex-shrink items-start self-stretch">
-						<div className="flex flex-col items-start lg:w-[206.15px]">
-							<h3 className="text-lg tracking-[-0.64px] text-moss max-lg:pb-[32px] max-sm:pb-[20px]">
+						<div className="flex flex-col items-start lg:w-[206px]">
+							<h3 className="text-moss max-lg:pb-[32px] max-sm:pb-[20px]">
 								Offerings
 							</h3>
 						</div>
@@ -27,13 +27,11 @@ export default function Offerings() {
 						<div className="flex w-full self-stretch max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
 							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md">
 								<div className="flex flex-col">
-									<h3 className="text-lg tracking-[-0.64px] text-solar">01</h3>
-									<h3 className="text-lg tracking-[-0.64px] text-slate">
-										Algorithms
-									</h3>
+									<h3 className="text-solar">01</h3>
+									<h3 className="text-slate">Algorithms</h3>
 								</div>
 								<div className="flex flex-col gap-y-micro pr-xs md:gap-y-nano">
-									<p className="text-sm text-slate">
+									<p className="text-slate">
 										Nibh non aenean magna cursus blandit. Lacus quis sed
 										tincidunt pulvinar tellus. Aenean ultricies vitae interdum
 										mauris maecenas mauris eget tristique facilisi.
@@ -68,13 +66,11 @@ export default function Offerings() {
 						<div className="flex w-full self-stretch max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
 							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md">
 								<div className="flex flex-col">
-									<h3 className="text-lg tracking-[-0.64px] text-solar">02</h3>
-									<h3 className="text-lg tracking-[-0.64px] text-slate">
-										Camera Systems
-									</h3>
+									<h3 className="text-solar">02</h3>
+									<h3 className="text-slate">Camera Systems</h3>
 								</div>
 								<div className="flex flex-col gap-y-micro pr-xs md:gap-y-nano">
-									<p className="text-sm text-slate">
+									<p className="text-slate">
 										Aenean ultricies vitae interdum mauris maecenas mauris eget
 										tristique facilisi. Nibh non aenean magna cursus blandit.
 										Lacus quis sed tincidunt pulvinar tellus.
@@ -112,13 +108,11 @@ export default function Offerings() {
 						<div className="flex w-full self-stretch max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
 							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md">
 								<div className="flex flex-col">
-									<h3 className="text-lg tracking-[-0.64px] text-solar">03</h3>
-									<h3 className="text-lg tracking-[-0.64px] text-slate">
-										Extended Reality Systems
-									</h3>
+									<h3 className="text-solar">03</h3>
+									<h3 className="text-slate">Extended Reality Systems</h3>
 								</div>
 								<div className="flex flex-col gap-y-micro pr-xs md:gap-y-nano">
-									<p className="text-sm text-slate">
+									<p className="text-slate">
 										Egestas montes euismod amet cursus feugiat nunc. Odio nunc
 										pharetra eget neque. Ut volutpat non dolor massa. Nunc sit
 										luctus in rhoncus vel pellentesque diam tempus. Tortor in
@@ -157,13 +151,11 @@ export default function Offerings() {
 						<div className="flex w-full self-stretch max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
 							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md">
 								<div className="flex flex-col">
-									<h3 className="text-lg tracking-[-0.64px] text-solar">04</h3>
-									<h3 className="text-lg tracking-[-0.64px] text-slate">
-										Endpoint Accuracy Systems
-									</h3>
+									<h3 className="text-solar">04</h3>
+									<h3 className="text-slate">Endpoint Accuracy Systems</h3>
 								</div>
 								<div className="flex flex-col gap-y-micro pr-xs md:gap-y-nano">
-									<p className="text-sm text-slate">
+									<p className="text-slate">
 										Dolor vel elementum fusce pellentesque id. Arcu augue risus
 										amet turpis. Quis sit at non leo. Quam orci malesuada nunc
 										purus lacus enim.

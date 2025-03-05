@@ -15,11 +15,11 @@ export default function Footer() {
 								alt="Teleidoscope Logo"
 							/>
 						</Link>
-						<p className="text-moss">
+						<h4 className="text-moss">
 							Advanced tracking, targeting, and
 							<br />
 							antonomy algorithms.
-						</p>
+						</h4>
 					</div>
 
 					<div className="flex h-full flex-1 flex-col gap-y-2xl md:gap-y-[120px]">

@@ -1,4 +1,3 @@
-import typography from '@tailwindcss/typography'
 import type { Config } from 'tailwindcss'
 
 export default {
@@ -51,6 +50,9 @@ export default {
 				nano: 'var(--spacing-nano)',
 				line: 'var(--spacing-line)',
 			},
+			height: {
+				fold: 'calc(100vh - var(--header-height))',
+			},
 			lineHeight: {
 				cta: 'var(--font-line-height-cta)',
 			},
@@ -59,5 +61,5 @@ export default {
 	future: {
 		hoverOnlyWhenSupported: true,
 	},
-	plugins: [typography],
+	plugins: [],
 } satisfies Config
