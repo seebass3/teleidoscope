@@ -51,6 +51,7 @@ export default function OfferingLayout({ page }: OfferingLayoutProps) {
 												{feature.media?.mediaType === 'video' &&
 													feature.media.video && (
 														<BackgroundPlayer
+															playbackId={feature.media.video.playbackId}
 															src={`${MUX_BASE_VIDEO_URL}${feature.media.video.playbackId}.m3u8`}
 															poster={`${MUX_BASE_IMAGE_URL}${feature.media.video.playbackId}/thumbnail.jpg?time=0`}
 															className="absolute inset-0 h-full overflow-hidden"

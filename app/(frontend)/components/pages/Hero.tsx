@@ -1,5 +1,3 @@
-'use client'
-
 import { Media } from '@/sanity.types'
 import { urlForImage } from '@/sanity/lib/utils'
 import { Image } from 'next-sanity/image'
@@ -35,6 +33,7 @@ export default function Hero({
 			<div className="relative h-[221px] md:h-[310px] lg:h-[600px]">
 				{hero?.mediaType === 'video' && hero.video?.playbackId && (
 					<BackgroundPlayer
+						playbackId={hero.video.playbackId}
 						src={`${MUX_BASE_VIDEO_URL}${hero.video.playbackId}.m3u8`}
 						poster={`${MUX_BASE_IMAGE_URL}${hero.video.playbackId}/thumbnail.jpg?time=0`}
 						className="absolute inset-0 h-full w-full overflow-hidden"
