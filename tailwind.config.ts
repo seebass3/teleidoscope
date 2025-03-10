@@ -35,8 +35,9 @@ export default {
 			transparent: 'transparent',
 		},
 		extend: {
-			boxShadow: {
-				layer: '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+			backgroundImage: {
+				'linear-gradient':
+					'linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%);',
 			},
 			spacing: {
 				'header-height': 'var(--header-height)',

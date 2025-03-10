@@ -114,7 +114,9 @@ export default function MobileNav({ navItems, logo, badge }: MobileNavProps) {
 							scroll={false}
 							className="w-fit max-md:hidden"
 						>
-							<Button size="small">Get In touch</Button>
+							<Button size="small" className="">
+								Get In touch
+							</Button>
 						</Link>
 						<button
 							className="relative flex h-[36px] w-[36px] items-center justify-center bg-flint text-moss"

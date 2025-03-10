@@ -70,6 +70,18 @@
 		}
 	}
 
+	@media (min-width: 1024px) {
+		:root {
+			--spacing-2xl: 160px;
+			--spacing-xl: 80px;
+			--spacing-lg: 60px;
+			--spacing-md: 40px;
+			--spacing-sm: 30px;
+			--spacing-micro: 24px;
+			--spacing-nano: 16px;
+		}
+	}
+
 	@media (min-width: 1280px) {
 		:root {
 			--font-size-3xl: 100px;
@@ -86,13 +98,6 @@
 			--letter-spacing-2xl: -1.44px;
 			--letter-spacing-xl: -1.12px;
 			--letter-spacing-lg: -0.64px;
-			--spacing-2xl: 160px;
-			--spacing-xl: 80px;
-			--spacing-lg: 60px;
-			--spacing-md: 40px;
-			--spacing-sm: 30px;
-			--spacing-micro: 24px;
-			--spacing-nano: 16px;
 		}
 	}
 
@@ -228,4 +233,32 @@
 		text-underline-offset: auto;
 		text-underline-position: from-font;
 	}
+}
+
+@layer utilities {
+	.clip-path {
+		clip-path: polygon(
+			0% 0%,
+			calc(100% - 12px) 0%,
+			100% 12px,
+			100% 100%,
+			0% 100%
+		);
+	}
+}
+
+/* Centering the next video background */
+.next-video-bg {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.next-video-bg-poster {
+	width: 100%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }

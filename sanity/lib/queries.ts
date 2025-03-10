@@ -23,6 +23,15 @@ const linkFields = /* groq */ `
       }
 `
 
+const mediaFields = /* groq */ `
+   mediaType,
+   image,
+   "video": video {
+    "source": source,
+    "playbackId": source.asset->playbackId
+  }
+`
+
 export const getPageQuery = defineQuery(`
   *[_type == 'page' && slug.current == $slug][0]{
     ...,
@@ -32,6 +41,16 @@ export const getPageQuery = defineQuery(`
     slug,
     pageType,
     _updatedAt,
+    hero {
+      ${mediaFields}
+    },
+    features[] {
+      title,
+      description,
+      media {
+        ${mediaFields}
+      }
+    }
   }
 `)
 

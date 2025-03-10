@@ -6,7 +6,7 @@ export interface ButtonProps
 		VariantProps<typeof buttonVariants> {}
 
 const buttonVariants = cva(
-	'flex shrink-0 items-center justify-center px-3 py-2 font-action text-micro uppercase leading-cta',
+	'flex shrink-0 items-center justify-center px-[12px] py-[8px] font-action text-micro uppercase leading-cta w-full',
 	{
 		variants: {
 			variant: {
@@ -15,9 +15,9 @@ const buttonVariants = cva(
 				outlineLight: 'border border-sand text-sand',
 			},
 			size: {
-				default: 'w-full md:w-[324px] lg:w-[287px]',
-				small: 'h-[36px] w-full md:w-[125px] lg:h-[31px]',
-				custom: 'w-full',
+				default: 'md:w-[324px] lg:w-[287px]',
+				small: 'md:w-[125px] h-[36px] md:w-[125px] lg:h-fit',
+				custom: '',
 			},
 		},
 		defaultVariants: {

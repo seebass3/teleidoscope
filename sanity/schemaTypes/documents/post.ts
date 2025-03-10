@@ -49,26 +49,10 @@ export default defineType({
 		defineField({
 			name: 'coverImage',
 			title: 'Cover Image',
-			type: 'image',
+			type: 'sanityImage',
 			options: {
 				hotspot: true,
 			},
-			fields: [
-				{
-					name: 'alt',
-					type: 'string',
-					title: 'Alternative text',
-					description: 'Important for SEO and accessibility.',
-					validation: (rule) => {
-						return rule.custom((alt, context) => {
-							if ((context.document?.coverImage as any)?.asset?._ref && !alt) {
-								return 'Required'
-							}
-							return true
-						})
-					},
-				},
-			],
 			validation: (rule) => rule.required(),
 		}),
 		defineField({

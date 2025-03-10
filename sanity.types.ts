@@ -136,19 +136,6 @@ export type InfoSection = {
   }>;
 };
 
-export type SanityImage = {
-  _type: "sanityImage";
-  asset?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-  };
-  hotspot?: SanityImageHotspot;
-  crop?: SanityImageCrop;
-  alt?: string;
-};
-
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -194,14 +181,85 @@ export type Page = {
   legalContent?: BlockContent;
   inDevelopment?: boolean;
   hero?: Media;
-  heading?: string;
+  heading?: Array<{
+    text?: string;
+    _type: "textBlock";
+    _key: string;
+  }>;
+  features?: Array<{
+    title: string;
+    description: string;
+    media?: Media;
+    _type: "feature";
+    _key: string;
+  }>;
+  productSpecs?: {
+    description?: string;
+    rows?: Array<{
+      category?: string;
+      items?: Array<string>;
+      _type: "row";
+      _key: string;
+    }>;
+  };
+  inTheNews?: {
+    active?: boolean;
+    heading?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "sanityImage";
+    };
+    excerpt?: string;
+    source?: string;
+    url?: string;
+  };
+  useCases?: Array<{
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "sanityImage";
+    };
+    description?: string;
+    _type: "useCase";
+    _key: string;
+  }>;
 };
 
 export type Media = {
   _type: "media";
   mediaType: "image" | "video";
-  image: SanityImage;
-  video?: MuxVideo;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "sanityImage";
+  };
+  video?: {
+    source?: MuxVideo;
+    playbackId?: string;
+  };
 };
 
 export type Post = {
@@ -225,7 +283,7 @@ export type Post = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
-    _type: "image";
+    _type: "sanityImage";
   };
   date?: string;
   author?: {
@@ -244,6 +302,19 @@ export type Person = {
   _rev: string;
   firstName: string;
   lastName: string;
+};
+
+export type SanityImage = {
+  _type: "sanityImage";
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+  };
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
 };
 
 export type Slug = {
@@ -426,12 +497,12 @@ export type AllSanitySchemaTypes =
   | CallToAction
   | Link
   | InfoSection
-  | SanityImage
   | BlockContent
   | Page
   | Media
   | Post
   | Person
+  | SanityImage
   | Slug
   | Settings
   | SanityImageCrop
@@ -473,7 +544,7 @@ export type SettingsQueryResult = {
   };
 } | null;
 // Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    ...,    _id,    _type,    name,    slug,    pageType,    _updatedAt,  }
+// Query: *[_type == 'page' && slug.current == $slug][0]{    ...,    _id,    _type,    name,    slug,    pageType,    _updatedAt,    hero {         mediaType,   image,   "video": video {    "source": source,    "playbackId": source.asset->playbackId  }    },    features[] {      title,      description,      media {           mediaType,   image,   "video": video {    "source": source,    "playbackId": source.asset->playbackId  }      }    }  }
 export type GetPageQueryResult = {
   _id: string;
   _type: "page";
@@ -485,8 +556,99 @@ export type GetPageQueryResult = {
   pageType: "about" | "legal" | "offering";
   legalContent?: BlockContent;
   inDevelopment?: boolean;
-  hero?: Media;
-  heading?: string;
+  hero: {
+    mediaType: "image" | "video";
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "sanityImage";
+    } | null;
+    video: {
+      source: MuxVideo | null;
+      playbackId: null;
+    } | null;
+  } | null;
+  heading?: Array<{
+    text?: string;
+    _type: "textBlock";
+    _key: string;
+  }>;
+  features: Array<{
+    title: string;
+    description: string;
+    media: {
+      mediaType: "image" | "video";
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "sanityImage";
+      } | null;
+      video: {
+        source: MuxVideo | null;
+        playbackId: null;
+      } | null;
+    } | null;
+  }> | null;
+  productSpecs?: {
+    description?: string;
+    rows?: Array<{
+      category?: string;
+      items?: Array<string>;
+      _type: "row";
+      _key: string;
+    }>;
+  };
+  inTheNews?: {
+    active?: boolean;
+    heading?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "sanityImage";
+    };
+    excerpt?: string;
+    source?: string;
+    url?: string;
+  };
+  useCases?: Array<{
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "sanityImage";
+    };
+    description?: string;
+    _type: "useCase";
+    _key: string;
+  }>;
 } | null;
 // Variable: sitemapData
 // Query: *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {    "slug": slug.current,    _type,    _updatedAt,  }
@@ -520,7 +682,7 @@ export type AllPostsQueryResult = Array<{
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
-    _type: "image";
+    _type: "sanityImage";
   };
   date: string;
   author: {
@@ -547,7 +709,7 @@ export type RecentPostsQueryResult = Array<{
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
-    _type: "image";
+    _type: "sanityImage";
   };
   date: string;
   author: {
@@ -607,7 +769,7 @@ export type PostQueryResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
-    _type: "image";
+    _type: "sanityImage";
   };
   date: string;
   author: {
@@ -630,7 +792,7 @@ export type PagesSlugsResult = Array<{
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "settings"][0]': SettingsQueryResult;
-    "\n  *[_type == 'page' && slug.current == $slug][0]{\n    ...,\n    _id,\n    _type,\n    name,\n    slug,\n    pageType,\n    _updatedAt,\n  }\n": GetPageQueryResult;
+    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    ...,\n    _id,\n    _type,\n    name,\n    slug,\n    pageType,\n    _updatedAt,\n    hero {\n      \n   mediaType,\n   image,\n   "video": video {\n    "source": source,\n    "playbackId": source.asset->playbackId\n  }\n\n    },\n    features[] {\n      title,\n      description,\n      media {\n        \n   mediaType,\n   image,\n   "video": video {\n    "source": source,\n    "playbackId": source.asset->playbackId\n  }\n\n      }\n    }\n  }\n': GetPageQueryResult;
     '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult;
     '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult;
     '\n  *[_type == "post" && defined(slug.current) \n    && ($skip == null || _id != $skip)\n  ] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': RecentPostsQueryResult;

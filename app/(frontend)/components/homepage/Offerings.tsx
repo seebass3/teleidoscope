@@ -6,7 +6,6 @@ import BackgroundVideo from 'next-video/background-video'
 import Image from 'next/image'
 import Link from 'next/link'
 import Button from '../Button'
-import Corner from '../Corner'
 
 const inDevelopmentArray = Array(6).fill('In Development')
 
@@ -14,18 +13,14 @@ export default function Offerings() {
 	return (
 		<section id="offerings" className="py-2xl">
 			<div className="container">
-				<div className="flex w-full items-start justify-between border-l border-moss/35 pl-line max-lg:flex-col">
-					<div className="flex flex-shrink items-start self-stretch">
-						<div className="flex flex-col items-start lg:w-[206px]">
-							<h3 className="text-moss max-lg:pb-[32px] max-sm:pb-[20px]">
-								Offerings
-							</h3>
-						</div>
+				<div className="flex w-full items-start justify-between gap-y-md border-l border-moss/35 pl-line max-lg:flex-col">
+					<div className="lg:min-w-[206px]">
+						<h3 className="text-moss">Offerings</h3>
 					</div>
 					<div className="flex w-full flex-col gap-xl sm:gap-sm lg:w-[937px]">
 						{/* Algorithms */}
-						<div className="flex w-full self-stretch max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
-							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md">
+						<div className="flex w-full max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
+							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md lg:gap-y-sm">
 								<div className="flex flex-col">
 									<h3 className="text-solar">01</h3>
 									<h3 className="text-slate">Algorithms</h3>
@@ -40,31 +35,27 @@ export default function Offerings() {
 										<Button
 											variant="outlineDark"
 											size="custom"
-											className="h-[31px] sm:w-[187px] lg:w-[210px]"
+											className="sm:w-[187px] lg:w-[210px]"
 										>
 											Learn More
 										</Button>
 									</Link>
 								</div>
 							</div>
-							<div className="relative min-h-[264px] basis-1/2 bg-white max-sm:order-1 sm:aspect-square">
-								<div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-									<BackgroundVideo
-										style={{
-											'--media-object-fit': 'cover',
-										}}
-										src={Algorithms}
-									/>
-								</div>
-								<span className="absolute right-0 top-0">
-									<Corner variant="white" />
-								</span>
+							<div className="clip-path relative flex min-h-[264px] basis-1/2 items-center justify-center bg-white max-sm:order-1 sm:aspect-square">
+								<BackgroundVideo
+									src={Algorithms}
+									className="absolute inset-0 h-full overflow-hidden max-sm:h-[264px]"
+									style={{
+										'--media-object-fit': 'cover',
+									}}
+								/>
 							</div>
 						</div>
 
 						{/* Camera Systems */}
-						<div className="flex w-full self-stretch max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
-							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md">
+						<div className="flex w-full max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
+							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md lg:gap-y-sm">
 								<div className="flex flex-col">
 									<h3 className="text-solar">02</h3>
 									<h3 className="text-slate">Camera Systems</h3>
@@ -82,14 +73,14 @@ export default function Offerings() {
 										<Button
 											variant="outlineDark"
 											size="custom"
-											className="h-[31px] sm:w-[187px] lg:w-[210px]"
+											className="sm:w-[187px] lg:w-[210px]"
 										>
 											Learn More
 										</Button>
 									</Link>
 								</div>
 							</div>
-							<div className="relative min-h-[264px] basis-1/2 bg-white max-sm:order-1 sm:aspect-square">
+							<div className="clip-path relative min-h-[264px] basis-1/2 bg-white max-sm:order-1 sm:aspect-square">
 								<Image
 									className="object-cover"
 									alt="Algorithms"
@@ -98,15 +89,12 @@ export default function Offerings() {
 									sizes="(min-width: 461px) 50vw, 100vw"
 									quality={100}
 								/>
-								<span className="absolute right-0 top-0">
-									<Corner variant="white" />
-								</span>
 							</div>
 						</div>
 
 						{/* Extended Reality Systems */}
-						<div className="flex w-full self-stretch max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
-							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md">
+						<div className="flex w-full max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
+							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md lg:gap-y-sm">
 								<div className="flex flex-col">
 									<h3 className="text-solar">03</h3>
 									<h3 className="text-slate">Extended Reality Systems</h3>
@@ -125,14 +113,14 @@ export default function Offerings() {
 										<Button
 											variant="outlineDark"
 											size="custom"
-											className="h-[31px] sm:w-[187px] lg:w-[210px]"
+											className="sm:w-[187px] lg:w-[210px]"
 										>
 											Learn More
 										</Button>
 									</Link>
 								</div>
 							</div>
-							<div className="relative min-h-[264px] basis-1/2 bg-white max-sm:order-1 sm:aspect-square">
+							<div className="clip-path relative min-h-[264px] basis-1/2 bg-white max-sm:order-1 sm:aspect-square">
 								<Image
 									className="object-cover"
 									alt="Extended Reality Systems"
@@ -141,15 +129,12 @@ export default function Offerings() {
 									sizes="(min-width: 461px) 50vw, 100vw"
 									quality={100}
 								/>
-								<span className="absolute right-0 top-0">
-									<Corner variant="white" />
-								</span>
 							</div>
 						</div>
 
 						{/* Endpoint Accuracy Systems */}
-						<div className="flex w-full self-stretch max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
-							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md">
+						<div className="flex w-full max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line">
+							<div className="flex basis-1/2 flex-col justify-between gap-y-xl bg-white px-sm pb-sm pt-[15px] max-sm:order-2 sm:aspect-square sm:pt-md lg:gap-y-sm">
 								<div className="flex flex-col">
 									<h3 className="text-solar">04</h3>
 									<h3 className="text-slate">Endpoint Accuracy Systems</h3>
@@ -167,14 +152,14 @@ export default function Offerings() {
 										<Button
 											variant="outlineDark"
 											size="custom"
-											className="h-[31px] sm:w-[187px] lg:w-[210px]"
+											className="sm:w-[187px] lg:w-[210px]"
 										>
 											Learn More
 										</Button>
 									</Link>
 								</div>
 							</div>
-							<div className="relative min-h-[264px] basis-1/2 bg-white max-sm:order-1 sm:aspect-square">
+							<div className="clip-path relative min-h-[264px] basis-1/2 bg-white max-sm:order-1 sm:aspect-square">
 								<Image
 									className="object-cover"
 									alt="Endpoint Accuracy Systems"
@@ -203,9 +188,6 @@ export default function Offerings() {
 										))}
 									</motion.div>
 								</div>
-								<span className="absolute right-0 top-0">
-									<Corner variant="white" />
-								</span>
 							</div>
 						</div>
 					</div>

@@ -24,7 +24,10 @@ export default function PostCard({
 		>
 			{coverImage && (
 				<div
-					className={`relative w-full overflow-hidden ${isLargerImage ? 'aspect-[4/3]' : 'aspect-[3/2]'}`}
+					className={cn(
+						'clip-path relative h-full w-full overflow-hidden',
+						isLargerImage ? 'aspect-[4/3]' : 'aspect-[3/2]',
+					)}
 				>
 					<Image
 						className="object-cover"
@@ -40,18 +43,15 @@ export default function PostCard({
 						priority={true}
 						draggable={false}
 					/>
-					<span className="absolute right-0 top-0">
-						<Corner variant="white" />
-					</span>
 				</div>
 			)}
 			<div className="relative flex flex-col gap-nano">
-				<span className="absolute right-0 top-0">
-					<Corner variant="solar" />
-				</span>
 				<h4 className="tracking[-0.4px] pr-[12px] text-md md:pr-[28px]">
 					{title}
 				</h4>
+				<span className="absolute right-0 top-0">
+					<Corner variant="solar" />
+				</span>
 				<p>{excerpt}</p>
 				<Link href={`/news/${slug}`} className="underlined-link">
 					Read More

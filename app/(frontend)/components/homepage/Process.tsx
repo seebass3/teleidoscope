@@ -11,7 +11,7 @@ export default function Process() {
 			<div className="container">
 				<div className="flex flex-col gap-y-md lg:flex-row lg:border-l lg:border-moss/35 lg:pl-line">
 					<div className="flex basis-1/2 flex-col gap-y-sm max-lg:border-l max-lg:border-moss/35 max-lg:pl-line lg:pr-[15px]">
-						<div className="flex items-start justify-between">
+						<div className="flex justify-between">
 							<h1 className="text-slate">How We Work</h1>
 							<Corner />
 						</div>

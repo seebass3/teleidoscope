@@ -13,7 +13,7 @@ export function ContactFormPage({ variant, content }: ContactFormPageProps) {
 			<div className="container py-2xl">
 				<div className="flex flex-col gap-x-[30px] gap-y-md border-l border-moss/35 pl-line lg:flex-row">
 					<div className="flex basis-1/2 flex-col gap-y-sm">
-						<div className="flex items-start justify-between">
+						<div className="flex justify-between">
 							<h2
 								className={cn(
 									variant === 'primary' ? 'text-slate' : 'text-solar',

@@ -4,6 +4,9 @@ export default defineType({
 	name: 'sanityImage',
 	title: 'Image',
 	type: 'image',
+	options: {
+		hotspot: true,
+	},
 	fields: [
 		defineField({
 			name: 'alt',
@@ -13,7 +16,7 @@ export default defineType({
 			validation: (rule) => {
 				// Custom validation to ensure alt text is provided if the image is present. https://www.sanity.io/docs/validation
 				return rule.custom((alt, context) => {
-					if ((context.document?.picture as any)?.asset?._ref && !alt) {
+					if ((context.parent as any)?.asset?._ref && !alt) {
 						return 'Required'
 					}
 					return true
@@ -21,8 +24,4 @@ export default defineType({
 			},
 		}),
 	],
-	options: {
-		hotspot: true,
-	},
-	validation: (rule) => rule.required(),
 })

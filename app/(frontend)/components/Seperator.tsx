@@ -14,8 +14,8 @@ export default function Seperator({
 	return (
 		<div
 			className={cn(
-				'shrink-0 opacity-35',
-				orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]',
+				'opacity-35',
+				orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px',
 				variant === 'moss' ? 'bg-moss' : 'bg-sand',
 				className,
 			)}

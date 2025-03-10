@@ -4,7 +4,7 @@ import Corner from '../Corner'
 export function ContactFormModal() {
 	return (
 		<div className="flex flex-col border-l border-sand/35 pl-line">
-			<div className="mb-sm flex items-start justify-between">
+			<div className="mb-sm flex justify-between">
 				<h2 className="text-solar">Let&#39;s Talk</h2>
 				<Corner />
 			</div>

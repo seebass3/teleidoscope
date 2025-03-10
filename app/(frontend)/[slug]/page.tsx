@@ -32,7 +32,6 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: Props): Promise<Metadata> {
 	const params = await props.params
 
-	// Fetch both page data and settings data in parallel
 	const [{ data: page }, { data: settings }] = await Promise.all([
 		sanityFetch({
 			query: getPageQuery,
@@ -46,9 +45,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 	])
 
 	const description =
-		page?.heading ||
-		settings?.description ||
-		'State of the art tracking software and systems.'
+		page?.heading && page.heading.length > 0
+			? page.heading.map((block: any) => block.text).join(' ')
+			: settings?.description ||
+				'State of the art tracking software and systems.'
 
 	return {
 		title: page?.name,
@@ -66,13 +66,12 @@ export default async function Page(props: Props) {
 		return notFound()
 	}
 
-	// Render different layouts based on page type
 	switch (page.pageType) {
 		case 'offering':
-			return <OfferingLayout page={page} />
+			return <OfferingLayout page={page as any} />
 		case 'about':
-			return <AboutLayout page={page} />
+			return <AboutLayout page={page as any} />
 		case 'legal':
-			return <LegalLayout page={page} />
+			return <LegalLayout page={page as any} />
 	}
 }
