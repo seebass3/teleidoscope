@@ -37,7 +37,7 @@ export default function ImageCarousel({
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.8 }}
-						className="relative h-full w-full"
+						className="absolute h-full w-full"
 					>
 						<Image
 							src={
