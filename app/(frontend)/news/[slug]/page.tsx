@@ -6,7 +6,6 @@ import { Suspense } from 'react'
 import { sanityFetch } from '@/sanity/lib/live'
 import { postPagesSlugs, postQuery } from '@/sanity/lib/queries'
 import { resolveOpenGraphImage } from '@/sanity/lib/utils'
-import CoverImage from '../../components/CoverImage'
 import PortableText from '../../components/PortableText'
 import { RecentPosts } from '../../components/posts/RecentPosts'
 
@@ -82,9 +81,6 @@ export default async function PostPage(props: Props) {
 							</div>
 						</div>
 						<article className="grid max-w-4xl gap-6">
-							<div className="">
-								<CoverImage image={post.coverImage} priority />
-							</div>
 							{post.content?.length && (
 								<PortableText
 									className="max-w-2xl"

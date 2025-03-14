@@ -4,10 +4,20 @@ import Corner from '../Corner'
 
 interface ContactFormPageProps {
 	variant: 'primary' | 'secondary'
-	content: string
+	header?: string
+	content?: string
 }
 
-export function ContactFormPage({ variant, content }: ContactFormPageProps) {
+const contactHeader = 'Custom Solutions'
+
+const contactContent =
+	'Get in touch with our team to discuss how our innovative approaches can advance your mission-critical objectives.'
+
+export function ContactFormPage({
+	variant,
+	header,
+	content,
+}: ContactFormPageProps) {
 	return (
 		<section id="contact" className="bg-sand">
 			<div className="container py-2xl">
@@ -19,12 +29,12 @@ export function ContactFormPage({ variant, content }: ContactFormPageProps) {
 									variant === 'primary' ? 'text-slate' : 'text-solar',
 								)}
 							>
-								{variant === 'primary' ? 'Custom Solutions' : "Let's Talk"}
+								{header && header.length > 0 ? header : contactHeader}
 							</h2>
 							<Corner />
 						</div>
 						<p className="text-slate md:max-w-[325px] lg:max-w-[288px]">
-							{content}
+							{content && content.length > 0 ? content : contactContent}
 						</p>
 					</div>
 					<div className="flex basis-1/2 flex-col lg:pt-[6px]">

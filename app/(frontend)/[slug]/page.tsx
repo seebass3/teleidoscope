@@ -5,6 +5,10 @@ import LegalLayout from '@/app/(frontend)/components/pages/LegalLayout'
 import OfferingLayout from '@/app/(frontend)/components/pages/OfferingLayout'
 import { sanityFetch } from '@/sanity/lib/live'
 import { getPageQuery, pagesSlugs, settingsQuery } from '@/sanity/lib/queries'
+import {
+	resolveOpenGraphImage,
+	resolveOpenGraphVideo,
+} from '@/sanity/lib/utils'
 import { notFound } from 'next/navigation'
 
 type Props = {
@@ -50,9 +54,28 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 			: settings?.description ||
 				'State of the art tracking software and systems.'
 
+	const getOgImage = () => {
+		const pageTitle = page?.title || ''
+
+		if (page?.hero?.image) {
+			return resolveOpenGraphImage(page.hero.image)
+		}
+
+		if (page?.hero?.video) {
+			return resolveOpenGraphVideo(page.hero.video, pageTitle)
+		}
+
+		return settings?.ogImage ? resolveOpenGraphImage(settings.ogImage) : null
+	}
+
+	const ogImage = getOgImage()
+
 	return {
-		title: page?.name,
+		title: page?.title,
 		description: description,
+		openGraph: {
+			images: ogImage ? [ogImage] : [],
+		},
 	} satisfies Metadata
 }
 
@@ -73,5 +96,7 @@ export default async function Page(props: Props) {
 			return <AboutLayout page={page as any} />
 		case 'legal':
 			return <LegalLayout page={page as any} />
+		default:
+			return notFound()
 	}
 }

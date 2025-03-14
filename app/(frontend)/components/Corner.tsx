@@ -1,7 +1,3 @@
-interface CornerProps {
-	variant?: 'solar' | 'sand' | 'white' | 'flint'
-}
-
 const variantColors = {
 	solar: '#FF6D00',
 	sand: '#EEEAE4',
@@ -9,7 +5,11 @@ const variantColors = {
 	flint: '#1F2424',
 } as const
 
-export default function Corner({ variant = 'solar' }: CornerProps) {
+export default function Corner({
+	variant = 'solar',
+}: {
+	variant?: keyof typeof variantColors
+}) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"

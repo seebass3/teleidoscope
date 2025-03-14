@@ -1,16 +1,14 @@
 import { cn } from '@/app/lib/utils'
 
-interface SeperatorProps {
-	orientation: 'horizontal' | 'vertical'
-	variant: 'moss' | 'sand'
-	className?: string
-}
-
 export default function Seperator({
 	orientation,
 	variant,
 	className,
-}: SeperatorProps) {
+}: {
+	orientation: 'horizontal' | 'vertical'
+	variant: 'moss' | 'sand'
+	className?: string
+}) {
 	return (
 		<div
 			className={cn(

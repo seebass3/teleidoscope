@@ -76,7 +76,7 @@ export default function MobileNav({ navItems, logo, badge }: MobileNavProps) {
 						className="relative flex h-[31px] shrink-0 overflow-hidden lg:hidden"
 						href="/"
 					>
-						<AnimatePresence mode="wait">
+						<AnimatePresence mode="wait" initial={false}>
 							{isMenuOpen && isMobile ? (
 								<motion.span
 									key="badge"

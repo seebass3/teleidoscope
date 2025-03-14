@@ -71,17 +71,70 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type UseCase = {
+  _type: "useCase";
+  title: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "sanityImage";
+  };
+  description: string;
+};
+
+export type Process = {
+  _type: "process";
+  icon: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "sanityImage";
+  };
+  title: string;
+  description: Array<{
+    text?: string;
+    _type: "textBlock";
+    _key: string;
+  }>;
+  highlights: Array<string>;
+};
+
+export type Feature = {
+  _type: "feature";
+  title: string;
+  description: string;
+  media?: Media;
+};
+
+export type Expertise = {
+  _type: "expertise";
+  title: string;
+  description: string;
+  button?: CallToAction;
+};
+
 export type CallToAction = {
   _type: "callToAction";
-  heading: string;
-  text?: string;
   buttonText?: string;
   link?: Link;
 };
 
 export type Link = {
   _type: "link";
-  linkType?: "href" | "page" | "post";
+  linkType?: "href" | "page" | "post" | "contact";
   href?: string;
   page?: {
     _ref: string;
@@ -96,44 +149,6 @@ export type Link = {
     [internalGroqTypeReferenceTo]?: "post";
   };
   openInNewTab?: boolean;
-};
-
-export type InfoSection = {
-  _type: "infoSection";
-  heading?: string;
-  subheading?: string;
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      linkType?: "href" | "page" | "post";
-      href?: string;
-      page?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "page";
-      };
-      post?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "post";
-      };
-      openInNewTab?: boolean;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
 };
 
 export type BlockContent = Array<{
@@ -175,7 +190,7 @@ export type Page = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name: string;
+  title: string;
   slug: Slug;
   pageType: "offering" | "about" | "legal";
   legalContent?: BlockContent;
@@ -186,64 +201,87 @@ export type Page = {
     _type: "textBlock";
     _key: string;
   }>;
-  features?: Array<{
-    title: string;
-    description: string;
-    media?: Media;
-    _type: "feature";
+  features?: Array<
+    {
+      _key: string;
+    } & Feature
+  >;
+  productSpecs?: ProductSpecs;
+  inTheNews?: NewsReference;
+  useCases?: Array<
+    {
+      _key: string;
+    } & UseCase
+  >;
+  expertise?: Array<
+    {
+      _key: string;
+    } & Expertise
+  >;
+  careers?: Careers;
+  process?: Array<
+    {
+      _key: string;
+    } & Process
+  >;
+  contactForm?: ContactForm;
+};
+
+export type Careers = {
+  _type: "careers";
+  heading?: string;
+  content?: string;
+  button?: CallToAction;
+  imageCarousel?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "sanityImage";
     _key: string;
   }>;
-  productSpecs?: {
-    description?: string;
-    rows?: Array<{
-      category?: string;
-      items?: Array<string>;
-      _type: "row";
-      _key: string;
-    }>;
-  };
-  inTheNews?: {
-    active?: boolean;
-    heading?: string;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "sanityImage";
+};
+
+export type NewsReference = {
+  _type: "newsReference";
+  active?: boolean;
+  heading?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
     };
-    excerpt?: string;
-    source?: string;
-    url?: string;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "sanityImage";
   };
-  useCases?: Array<{
-    title?: string;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "sanityImage";
-    };
-    description?: string;
-    _type: "useCase";
+  excerpt?: string;
+  source?: string;
+  url?: string;
+};
+
+export type ProductSpecs = {
+  _type: "productSpecs";
+  description?: string;
+  rows?: Array<{
+    category: string;
+    items?: Array<string>;
+    _type: "row";
     _key: string;
   }>;
 };
 
 export type Media = {
   _type: "media";
-  mediaType: "image" | "video";
+  mediaType?: "image" | "video";
   image?: {
     asset?: {
       _ref: string;
@@ -344,6 +382,13 @@ export type Settings = {
     metadataBase?: string;
     _type: "image";
   };
+  contactForm?: ContactForm;
+};
+
+export type ContactForm = {
+  _type: "contactForm";
+  header?: string;
+  content?: string;
 };
 
 export type SanityImageCrop = {
@@ -494,17 +539,24 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | UseCase
+  | Process
+  | Feature
+  | Expertise
   | CallToAction
   | Link
-  | InfoSection
   | BlockContent
   | Page
+  | Careers
+  | NewsReference
+  | ProductSpecs
   | Media
   | Post
   | Person
   | SanityImage
   | Slug
   | Settings
+  | ContactForm
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
@@ -542,22 +594,23 @@ export type SettingsQueryResult = {
     metadataBase?: string;
     _type: "image";
   };
+  contactForm?: ContactForm;
 } | null;
 // Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    ...,    _id,    _type,    name,    slug,    pageType,    _updatedAt,    hero {         mediaType,   image,   "video": video {    "source": source,    "playbackId": source.asset->playbackId  }    },    features[] {      title,      description,      media {           mediaType,   image,   "video": video {    "source": source,    "playbackId": source.asset->playbackId  }      }    }  }
+// Query: *[_type == 'page' && slug.current == $slug][0]{    ...,    _id,    _type,    title,    slug,    pageType,    _updatedAt,    hero {         mediaType,   image,   "video": video {    "source": source,    "playbackId": source.asset->playbackId  }    },    features[] {      ...,      media {           mediaType,   image,   "video": video {    "source": source,    "playbackId": source.asset->playbackId  }      }    }  }
 export type GetPageQueryResult = {
   _id: string;
   _type: "page";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name: string;
+  title: string;
   slug: Slug;
   pageType: "about" | "legal" | "offering";
   legalContent?: BlockContent;
   inDevelopment?: boolean;
   hero: {
-    mediaType: "image" | "video";
+    mediaType: "image" | "video" | null;
     image: {
       asset?: {
         _ref: string;
@@ -581,10 +634,12 @@ export type GetPageQueryResult = {
     _key: string;
   }>;
   features: Array<{
+    _key: string;
+    _type: "feature";
     title: string;
     description: string;
     media: {
-      mediaType: "image" | "video";
+      mediaType: "image" | "video" | null;
       image: {
         asset?: {
           _ref: string;
@@ -603,52 +658,25 @@ export type GetPageQueryResult = {
       } | null;
     } | null;
   }> | null;
-  productSpecs?: {
-    description?: string;
-    rows?: Array<{
-      category?: string;
-      items?: Array<string>;
-      _type: "row";
+  productSpecs?: ProductSpecs;
+  inTheNews?: NewsReference;
+  useCases?: Array<
+    {
       _key: string;
-    }>;
-  };
-  inTheNews?: {
-    active?: boolean;
-    heading?: string;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "sanityImage";
-    };
-    excerpt?: string;
-    source?: string;
-    url?: string;
-  };
-  useCases?: Array<{
-    title?: string;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "sanityImage";
-    };
-    description?: string;
-    _type: "useCase";
-    _key: string;
-  }>;
+    } & UseCase
+  >;
+  expertise?: Array<
+    {
+      _key: string;
+    } & Expertise
+  >;
+  careers?: Careers;
+  process?: Array<
+    {
+      _key: string;
+    } & Process
+  >;
+  contactForm?: ContactForm;
 } | null;
 // Variable: sitemapData
 // Query: *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {    "slug": slug.current,    _type,    _updatedAt,  }
@@ -792,7 +820,7 @@ export type PagesSlugsResult = Array<{
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "settings"][0]': SettingsQueryResult;
-    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    ...,\n    _id,\n    _type,\n    name,\n    slug,\n    pageType,\n    _updatedAt,\n    hero {\n      \n   mediaType,\n   image,\n   "video": video {\n    "source": source,\n    "playbackId": source.asset->playbackId\n  }\n\n    },\n    features[] {\n      title,\n      description,\n      media {\n        \n   mediaType,\n   image,\n   "video": video {\n    "source": source,\n    "playbackId": source.asset->playbackId\n  }\n\n      }\n    }\n  }\n': GetPageQueryResult;
+    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    ...,\n    _id,\n    _type,\n    title,\n    slug,\n    pageType,\n    _updatedAt,\n    hero {\n      \n   mediaType,\n   image,\n   "video": video {\n    "source": source,\n    "playbackId": source.asset->playbackId\n  }\n\n    },\n    features[] {\n      ...,\n      media {\n        \n   mediaType,\n   image,\n   "video": video {\n    "source": source,\n    "playbackId": source.asset->playbackId\n  }\n\n      }\n    }\n  }\n': GetPageQueryResult;
     '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult;
     '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult;
     '\n  *[_type == "post" && defined(slug.current) \n    && ($skip == null || _id != $skip)\n  ] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': RecentPostsQueryResult;

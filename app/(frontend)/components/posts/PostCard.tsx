@@ -39,7 +39,7 @@ export default function PostCard({
 								.auto('format')
 								.url() as string
 						}
-						sizes="100vw"
+						sizes="(max-width: 768px) 100vw, 50vw"
 						priority={true}
 						draggable={false}
 					/>

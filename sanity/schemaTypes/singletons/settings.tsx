@@ -40,8 +40,8 @@ export default defineType({
 					title: 'Alternative text',
 					type: 'string',
 					validation: (rule) => {
-						return rule.custom((alt, context) => {
-							if ((context.document?.ogImage as any)?.asset?._ref && !alt) {
+						return rule.custom((alt, context: any) => {
+							if (context.document?.ogImage?.asset?._ref && !alt) {
 								return 'Required'
 							}
 							return true
@@ -61,6 +61,11 @@ export default defineType({
 					),
 				}),
 			],
+		}),
+		defineField({
+			name: 'contactForm',
+			title: 'Modal Contact Form',
+			type: 'contactForm',
 		}),
 	],
 	preview: {

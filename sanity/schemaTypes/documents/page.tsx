@@ -1,10 +1,5 @@
-import {
-	DocumentIcon,
-	ListIcon,
-	StackCompactIcon,
-	TextIcon,
-	VideoIcon,
-} from '@sanity/icons'
+import { isUniqueAcrossAllDocuments } from '@/sanity/lib/isUniqueAcrossAllDocuments'
+import { DocumentIcon, TextIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 /**
@@ -19,20 +14,23 @@ export default defineType({
 	icon: DocumentIcon,
 	fields: [
 		defineField({
-			name: 'name',
-			title: 'Name',
+			name: 'title',
+			title: 'Title',
 			type: 'string',
-			validation: (Rule) => Rule.required(),
+			validation: (rule) => rule.required(),
 		}),
 
 		defineField({
 			name: 'slug',
 			title: 'Slug',
 			type: 'slug',
-			validation: (Rule) => Rule.required(),
+			validation: (rule) => rule.required(),
 			options: {
-				source: 'name',
+				source: 'title',
 				maxLength: 96,
+				slugify: (input) =>
+					input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+				isUnique: isUniqueAcrossAllDocuments,
 			},
 		}),
 		defineField({
@@ -42,13 +40,20 @@ export default defineType({
 			options: {
 				list: ['offering', 'about', 'legal'],
 			},
-			validation: (Rule) => Rule.required(),
+			validation: (rule) => rule.required(),
 		}),
 		defineField({
 			name: 'legalContent',
 			title: 'Legal Content',
 			type: 'blockContent',
 			hidden: ({ parent }) => parent?.pageType !== 'legal',
+			validation: (rule) =>
+				rule.custom((value, context) => {
+					if (context.document?.pageType === 'legal' && !value) {
+						return 'Legal content is required'
+					}
+					return true
+				}),
 		}),
 		defineField({
 			name: 'inDevelopment',
@@ -59,13 +64,24 @@ export default defineType({
 		}),
 		defineField({
 			name: 'hero',
-			title: 'Hero',
+			title: 'Page Hero',
 			type: 'media',
 			hidden: ({ parent }) => {
 				return !(
 					parent?.pageType === 'offering' || parent?.pageType === 'about'
 				)
 			},
+			validation: (rule) =>
+				rule.custom((value, context) => {
+					const pageType = context.document?.pageType
+					const isRequiredPageType =
+						pageType === 'offering' || pageType === 'about'
+
+					if (isRequiredPageType && !value) {
+						return 'Hero section is required for offering and about pages'
+					}
+					return true
+				}),
 		}),
 		defineField({
 			name: 'heading',
@@ -75,9 +91,9 @@ export default defineType({
 			type: 'array',
 			of: [
 				{
-					type: 'object',
 					name: 'textBlock',
 					title: 'Text Block',
+					type: 'object',
 					icon: TextIcon,
 					fields: [
 						{
@@ -106,206 +122,38 @@ export default defineType({
 			type: 'array',
 			of: [
 				{
-					type: 'object',
-					name: 'feature',
-					title: 'Feature',
-					icon: ListIcon,
-					fields: [
-						defineField({
-							name: 'title',
-							type: 'string',
-							title: 'Title',
-							validation: (Rule) => Rule.required(),
-						}),
-						defineField({
-							name: 'description',
-							type: 'text',
-							title: 'Description',
-							validation: (Rule) => Rule.required(),
-						}),
-						defineField({
-							name: 'media',
-							type: 'media',
-							title: 'Media',
-						}),
-					],
-					preview: {
-						select: {
-							title: 'title',
-							subtitle: 'description',
-							image: 'media.image',
-							videoPlaybackId: 'media.video.source.asset.playbackId',
-							mediaType: 'media.mediaType',
-						},
-						prepare({ title, subtitle, image, videoPlaybackId, mediaType }) {
-							const hasValidPlaybackId =
-								videoPlaybackId && videoPlaybackId !== ''
-							let videoPreview = null
-							if (hasValidPlaybackId) {
-								const url = `https://image.mux.com/${videoPlaybackId}/thumbnail.jpg?width=200&height=200&fit_mode=smartcrop&time=0`
-								videoPreview = <img src={url} />
-							}
-							return {
-								title: title,
-								subtitle: subtitle,
-								media:
-									image || (mediaType === 'video' && videoPreview) || VideoIcon,
-							}
-						},
-					},
+					type: 'feature',
 				},
 			],
 			hidden: ({ parent }) => parent?.pageType !== 'offering',
+			validation: (rule) =>
+				rule.custom((value, context) => {
+					if (
+						context.document?.pageType === 'offering' &&
+						(!value || value.length === 0)
+					) {
+						return 'At least one feature is required'
+					}
+					return true
+				}),
 		}),
 		defineField({
 			name: 'productSpecs',
 			title: 'Product Specs',
-			type: 'object',
-			fields: [
-				defineField({
-					name: 'description',
-					title: 'Description',
-					type: 'text',
-				}),
-				defineField({
-					name: 'rows',
-					title: 'Rows',
-					type: 'array',
-					of: [
-						{
-							type: 'object',
-							name: 'row',
-							title: 'Row',
-							fields: [
-								defineField({
-									name: 'category',
-									title: 'Category',
-									type: 'string',
-								}),
-								defineField({
-									name: 'items',
-									title: 'Category Items',
-									description:
-										'Leave blank if the category is a standalone product highlight.',
-									type: 'array',
-									of: [
-										{
-											type: 'string',
-											name: 'item',
-											title: 'Item',
-										},
-									],
-								}),
-							],
-							preview: {
-								select: {
-									title: 'category',
-									items: 'items',
-								},
-								prepare({ title, items }) {
-									const subtitle =
-										items && items.length > 0
-											? items.join(', ')
-											: 'No items (standalone highlight)'
-
-									return {
-										title: title || 'Untitled Category',
-										subtitle,
-										media: StackCompactIcon,
-									}
-								},
-							},
-						},
-					],
-				}),
-			],
+			type: 'productSpecs',
 			hidden: ({ parent }) => parent?.pageType !== 'offering',
+			validation: (rule) =>
+				rule.custom((value, context) => {
+					if (context.document?.pageType === 'offering' && !value) {
+						return 'Product specs are required'
+					}
+					return true
+				}),
 		}),
 		defineField({
 			name: 'inTheNews',
 			title: 'In the News',
-			type: 'object',
-			fields: [
-				defineField({
-					name: 'active',
-					title: 'Active',
-					type: 'boolean',
-					initialValue: false,
-					description: 'Show the "In the news" section on the page.',
-				}),
-				defineField({
-					name: 'heading',
-					title: 'Heading',
-					type: 'string',
-					hidden: ({ parent }) => !parent?.active,
-					validation: (rule) => {
-						return rule.custom((value, context) => {
-							if ((context.parent as any)?.active && !value) {
-								return 'Required'
-							}
-							return true
-						})
-					},
-				}),
-				defineField({
-					name: 'image',
-					title: 'Image',
-					type: 'sanityImage',
-					hidden: ({ parent }) => !parent?.active,
-					validation: (rule) => {
-						return rule.custom((value, context) => {
-							if ((context.parent as any)?.active && !value) {
-								return 'Required'
-							}
-							return true
-						})
-					},
-				}),
-				defineField({
-					name: 'excerpt',
-					title: 'Excerpt',
-					type: 'text',
-					hidden: ({ parent }) => !parent?.active,
-					validation: (rule) => {
-						return rule.custom((value, context) => {
-							if ((context.parent as any)?.active && !value) {
-								return 'Required'
-							}
-							return true
-						})
-					},
-				}),
-				defineField({
-					name: 'source',
-					title: 'Source',
-					type: 'string',
-					description:
-						'The name of the publication or website. Will be added to the "Read More" button.',
-					hidden: ({ parent }) => !parent?.active,
-					validation: (rule) => {
-						return rule.custom((value, context) => {
-							if ((context.parent as any)?.active && !value) {
-								return 'Required'
-							}
-							return true
-						})
-					},
-				}),
-				defineField({
-					name: 'url',
-					title: 'URL',
-					type: 'url',
-					hidden: ({ parent }) => !parent?.active,
-					validation: (rule) => {
-						return rule.custom((value, context) => {
-							if ((context.parent as any)?.active && !value) {
-								return 'Required'
-							}
-							return true
-						})
-					},
-				}),
-			],
+			type: 'newsReference',
 			hidden: ({ parent }) => parent?.pageType !== 'offering',
 		}),
 		defineField({
@@ -314,40 +162,111 @@ export default defineType({
 			type: 'array',
 			of: [
 				{
-					type: 'object',
-					name: 'useCase',
-					title: 'Use Case',
-					icon: StackCompactIcon,
-					fields: [
-						defineField({
-							name: 'title',
-							title: 'Title',
-							type: 'string',
-						}),
-						defineField({
-							name: 'image',
-							title: 'Image',
-							type: 'sanityImage',
-							options: {
-								hotspot: true,
-							},
-						}),
-						defineField({
-							name: 'description',
-							title: 'Description',
-							type: 'text',
-						}),
-					],
-					preview: {
-						select: {
-							title: 'title',
-							subtitle: 'description',
-							media: 'image',
-						},
-					},
+					type: 'useCase',
 				},
 			],
 			hidden: ({ parent }) => parent?.pageType !== 'offering',
+			validation: (rule) =>
+				rule.custom((value, context) => {
+					if (
+						context.document?.pageType === 'offering' &&
+						(!value || value.length === 0)
+					) {
+						return 'At least one use case is required'
+					}
+					return true
+				}),
+		}),
+		defineField({
+			name: 'expertise',
+			title: 'Expertise',
+			type: 'array',
+			of: [
+				{
+					type: 'expertise',
+				},
+			],
+			hidden: ({ parent }) => parent?.pageType !== 'about',
+			validation: (rule) =>
+				rule.custom((value, context) => {
+					if (
+						context.document?.pageType === 'about' &&
+						(!value || value.length < 1)
+					) {
+						return 'At least one expertise item is required'
+					}
+					return true
+				}),
+		}),
+		defineField({
+			name: 'careers',
+			title: 'Careers',
+			type: 'careers',
+			hidden: ({ parent }) => parent?.pageType !== 'about',
+			validation: (rule) =>
+				rule.custom((value, context) => {
+					if (context.document?.pageType === 'about' && !value) {
+						return 'Careers section is required'
+					}
+					return true
+				}),
+		}),
+		defineField({
+			name: 'process',
+			title: 'Process',
+			type: 'array',
+			of: [
+				{
+					type: 'process',
+				},
+			],
+			hidden: ({ parent }) => parent?.pageType !== 'about',
+			validation: (rule) =>
+				rule.custom((value, context) => {
+					if (
+						context.document?.pageType === 'about' &&
+						(!value || value.length < 1)
+					) {
+						return 'At least one process item is required'
+					}
+					return true
+				}),
+		}),
+		defineField({
+			name: 'contactForm',
+			title: 'Contact Form',
+			type: 'contactForm',
+			hidden: ({ parent }) => {
+				return !(
+					parent?.pageType === 'offering' || parent?.pageType === 'about'
+				)
+			},
 		}),
 	],
+	preview: {
+		select: {
+			title: 'title',
+			subtitle: 'pageType',
+			image: 'hero.image',
+			videoPlaybackId: 'hero.video.source.asset.playbackId',
+			mediaType: 'hero.mediaType',
+		},
+		prepare({ title, subtitle, image, videoPlaybackId, mediaType }) {
+			const hasValidPlaybackId = videoPlaybackId && videoPlaybackId !== ''
+			let videoPreview = null
+
+			if (hasValidPlaybackId) {
+				const url = `https://image.mux.com/${videoPlaybackId}/thumbnail.jpg?width=200&height=200&fit_mode=smartcrop&time=0`
+				videoPreview = <img src={url} />
+			}
+
+			return {
+				title: title || 'Untitled Page',
+				subtitle: subtitle
+					? subtitle.charAt(0).toUpperCase() + subtitle.slice(1)
+					: 'No page type selected',
+				media: image || (mediaType === 'video' && videoPreview) || DocumentIcon,
+			}
+		},
+	},
 })

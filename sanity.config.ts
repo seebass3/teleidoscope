@@ -18,7 +18,7 @@ import {
 	type DocumentLocation,
 } from 'sanity/presentation'
 import { SanityLogo } from './branding/SanityLogo'
-import { dataset, projectId, studioUrl } from './sanity/lib/api'
+import { apiVersion, dataset, projectId, studioUrl } from './sanity/lib/api'
 import { schemaTypes } from './sanity/schemaTypes'
 import { structure } from './sanity/structure'
 
@@ -88,6 +88,7 @@ export default defineConfig({
 	basePath: studioUrl,
 	projectId,
 	dataset,
+	apiVersion,
 
 	plugins: [
 		structureTool({
@@ -124,7 +125,7 @@ export default defineConfig({
 					}),
 					page: defineLocations({
 						select: {
-							name: 'name',
+							name: 'title',
 							slug: 'slug.current',
 						},
 						resolve: (doc) => ({

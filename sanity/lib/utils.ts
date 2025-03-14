@@ -24,6 +24,24 @@ export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
 	return { url, alt: image?.alt as string, width, height }
 }
 
+export function resolveOpenGraphVideo(
+	video: any,
+	pageTitle?: string,
+	width = 1200,
+	height = 627,
+) {
+	if (!video?.playbackId) return
+
+	const url = `https://image.mux.com/${video.playbackId}/thumbnail.jpg?width=${width}&height=${height}&fit_mode=smartcrop&time=0`
+
+	return {
+		url,
+		width,
+		height,
+		alt: pageTitle as string,
+	}
+}
+
 // Depending on the type of link, we need to fetch the corresponding page, post, or URL.  Otherwise return null.
 export function linkResolver(link: Link | undefined) {
 	if (!link) return null
@@ -42,8 +60,11 @@ export function linkResolver(link: Link | undefined) {
 			}
 		case 'post':
 			if (link?.post && typeof link.post === 'string') {
-				return `/posts/${link.post}`
+				return `/news/${link.post}`
 			}
+		case 'contact':
+			return '/contact'
+
 		default:
 			return null
 	}

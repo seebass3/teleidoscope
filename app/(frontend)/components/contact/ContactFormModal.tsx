@@ -1,16 +1,27 @@
 import Button from '../Button'
 import Corner from '../Corner'
 
-export function ContactFormModal() {
+interface ContactFormModalProps {
+	header?: string
+	content?: string
+}
+
+const contactHeader = 'Custom Solutions'
+
+const contactContent =
+	'Get in touch with our team to discuss how our innovative approaches can advance your mission-critical objectives.'
+
+export function ContactFormModal({ header, content }: ContactFormModalProps) {
 	return (
 		<div className="flex flex-col border-l border-sand/35 pl-line">
 			<div className="mb-sm flex justify-between">
-				<h2 className="text-solar">Let&#39;s Talk</h2>
+				<h2 className="text-solar">
+					{header && header.length > 0 ? header : contactHeader}
+				</h2>
 				<Corner />
 			</div>
 			<p className="mb-md max-w-[325px] text-sand">
-				Get in touch with our team to discuss how our innovative approaches can
-				advance your mission- critical objectives.
+				{content && content.length > 0 ? content : contactContent}
 			</p>
 			<form className="flex flex-col">
 				<div className="flex max-md:flex-col md:gap-[15px] lg:gap-[30px]">

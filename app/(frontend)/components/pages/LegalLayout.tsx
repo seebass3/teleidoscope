@@ -1,17 +1,13 @@
-import { Page } from '@/sanity.types'
+import { Page as PageType } from '@/sanity.types'
 import { type PortableTextBlock } from 'next-sanity'
 import DateComponent from '../Date'
 import PortableText from '../PortableText'
 
-interface LegalLayoutProps {
-	page: Page
-}
-
-export default function LegalLayout({ page }: LegalLayoutProps) {
+export default function LegalLayout({ page }: { page: PageType }) {
 	return (
 		<section id="legal-content" className="pb-2xl pt-[200px]">
 			<div className="container">
-				<h1 className="mb-xl pl-line text-slate">{page.name}</h1>
+				<h1 className="mb-xl pl-line text-slate">{page.title}</h1>
 				<div className="flex w-full items-start justify-between border-l border-moss/35 pl-line max-lg:flex-col max-lg:gap-xl">
 					<div className="lg:min-w-[206px]">
 						{page._updatedAt && (

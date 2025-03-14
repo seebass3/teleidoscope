@@ -13,6 +13,7 @@ const buttonVariants = cva(
 				primary: 'bg-solar text-white',
 				outlineDark: 'border border-slate text-slate',
 				outlineLight: 'border border-sand text-sand',
+				dashed: 'border border-dashed border-slate text-slate',
 			},
 			size: {
 				default: 'md:w-[324px] lg:w-[287px]',

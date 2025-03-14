@@ -16,8 +16,6 @@ export default defineType({
 				],
 				layout: 'radio',
 			},
-			initialValue: 'image',
-			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: 'image',
@@ -31,8 +29,11 @@ export default defineType({
 				return parent?.mediaType !== 'image'
 			},
 			validation: (rule) => {
-				return rule.custom((value, context) => {
-					if ((context.parent as any)?.mediaType === 'image' && !value) {
+				return rule.custom((value: any, context: any) => {
+					if (
+						context.parent?.mediaType === 'image' &&
+						(!value || !value?.asset?._ref)
+					) {
 						return 'Image is required'
 					}
 					return true
@@ -67,8 +68,8 @@ export default defineType({
 				return parent?.mediaType !== 'video'
 			},
 			validation: (rule) => {
-				return rule.custom((value, context) => {
-					if ((context.parent as any)?.mediaType === 'video' && !value) {
+				return rule.custom((value, context: any) => {
+					if (context.parent?.mediaType === 'video' && !value) {
 						return 'Video is required'
 					}
 					return true

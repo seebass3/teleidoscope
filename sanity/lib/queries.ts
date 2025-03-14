@@ -37,7 +37,7 @@ export const getPageQuery = defineQuery(`
     ...,
     _id,
     _type,
-    name,
+    title,
     slug,
     pageType,
     _updatedAt,
@@ -45,8 +45,7 @@ export const getPageQuery = defineQuery(`
       ${mediaFields}
     },
     features[] {
-      title,
-      description,
+      ...,
       media {
         ${mediaFields}
       }
