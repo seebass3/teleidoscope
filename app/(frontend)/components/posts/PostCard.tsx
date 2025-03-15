@@ -1,7 +1,7 @@
 import { cn } from '@/app/lib/utils'
 import { Post as PostType } from '@/sanity.types'
 import { urlForImage } from '@/sanity/lib/utils'
-import { stegaClean } from 'next-sanity'
+import { createDataAttribute, stegaClean } from 'next-sanity'
 import { Image } from 'next-sanity/image'
 import Link from 'next/link'
 import Corner from '../Corner'
@@ -15,7 +15,7 @@ export default function PostCard({
 	isLargerImage?: boolean
 	className?: string
 }) {
-	const { _id, title, slug, excerpt, coverImage } = post
+	const { _id, _type, title, slug, excerpt, coverImage } = post
 
 	return (
 		<div
@@ -24,6 +24,11 @@ export default function PostCard({
 		>
 			{coverImage && (
 				<div
+					data-sanity={createDataAttribute({
+						id: _id,
+						type: _type,
+						path: 'coverImage',
+					}).toString()}
 					className={cn(
 						'clip-path relative h-full w-full overflow-hidden',
 						isLargerImage ? 'aspect-[4/3]' : 'aspect-[3/2]',
@@ -34,10 +39,7 @@ export default function PostCard({
 						fill={true}
 						alt={stegaClean(coverImage?.alt) || ''}
 						src={
-							urlForImage(coverImage)
-								?.width(1280)
-								.auto('format')
-								.url() as string
+							urlForImage(coverImage)?.width(800).auto('format').url() as string
 						}
 						sizes="(max-width: 768px) 100vw, 50vw"
 						priority={true}

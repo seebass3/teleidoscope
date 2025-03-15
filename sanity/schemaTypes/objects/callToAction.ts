@@ -46,7 +46,7 @@ export default defineType({
 					const hasButtonText = buttonText && buttonText.trim() !== ''
 
 					if (hasButtonText && (!value || !value.linkType)) {
-						return 'Button link is required when button text is provided'
+						return 'Button link is required when button text is set'
 					}
 
 					return true

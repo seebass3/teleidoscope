@@ -3,6 +3,7 @@
 import { cn } from '@/app/lib/utils'
 import { Page as PageType } from '@/sanity.types'
 import { urlForImage } from '@/sanity/lib/utils'
+import { createDataAttribute, stegaClean } from 'next-sanity'
 import { Image } from 'next-sanity/image'
 import BackgroundPlayer from 'next-video/background-player'
 import React from 'react'
@@ -17,6 +18,8 @@ const MUX_BASE_IMAGE_URL = 'https://image.mux.com/'
 
 export default function OfferingLayout({ page }: { page: PageType }) {
 	const {
+		_id,
+		_type,
 		title,
 		hero,
 		inDevelopment,
@@ -32,7 +35,12 @@ export default function OfferingLayout({ page }: { page: PageType }) {
 			<div className="container pt-[160px] lg:pt-[200px]">
 				<h1 className="mb-sm pl-line text-slate">{title}</h1>
 			</div>
-			<Hero hero={hero} inDevelopment={inDevelopment} />
+			<Hero
+				hero={hero}
+				inDevelopment={inDevelopment}
+				documentId={_id}
+				documentType={_type}
+			/>
 			{heading && (
 				<div className="container pt-xl">
 					<div className="flex justify-center lg:justify-start xl:justify-end">
@@ -63,7 +71,17 @@ export default function OfferingLayout({ page }: { page: PageType }) {
 									className="flex w-full flex-col gap-xl sm:gap-sm"
 								>
 									<div className="flex w-full flex-col gap-sm self-stretch max-sm:flex-col lg:border-l lg:border-moss/35 lg:pl-line xl:flex-row">
-										<div className="clip-path relative h-[198px] w-full sm:h-[354px] xl:h-[323px]">
+										<div
+											data-sanity={createDataAttribute({
+												id: _id,
+												type: _type,
+												path:
+													feature.media?.mediaType === 'video'
+														? `features[_key=="${feature._key}"].media.video`
+														: `features[_key=="${feature._key}"].media.image`,
+											}).toString()}
+											className="clip-path relative h-[198px] w-full sm:h-[354px] xl:h-[323px]"
+										>
 											<div className="absolute inset-0 z-10 h-full w-full bg-linear-gradient" />
 											{feature.media?.mediaType === 'video' &&
 												feature.media.video && (
@@ -89,7 +107,10 @@ export default function OfferingLayout({ page }: { page: PageType }) {
 																	.auto('format')
 																	.url() as string
 															}
-															alt={feature.media.image.alt || feature.title}
+															alt={
+																stegaClean(feature.media.image.alt) ||
+																feature.title
+															}
 															fill
 															sizes="(min-width: 605px) 50vw, 100vw"
 															priority
@@ -171,7 +192,14 @@ export default function OfferingLayout({ page }: { page: PageType }) {
 									</div>
 									<div className="flex w-full flex-col gap-sm self-stretch max-sm:flex-col xl:flex-row">
 										<div className="clip-path relative h-[198px] w-full sm:h-[354px] xl:h-[323px]">
-											<div className="absolute inset-0">
+											<div
+												data-sanity={createDataAttribute({
+													id: _id,
+													type: _type,
+													path: 'inTheNews.image',
+												}).toString()}
+												className="absolute inset-0"
+											>
 												<Image
 													className="object-cover"
 													src={
@@ -180,7 +208,7 @@ export default function OfferingLayout({ page }: { page: PageType }) {
 															.auto('format')
 															.url() as string
 													}
-													alt={inTheNews.image?.alt || ''}
+													alt={stegaClean(inTheNews.image?.alt) || ''}
 													fill
 													sizes="(min-width: 605px) 50vw, 100vw"
 													priority
@@ -258,6 +286,11 @@ export default function OfferingLayout({ page }: { page: PageType }) {
 																<Corner variant="solar" />
 															</div>
 															<div
+																data-sanity={createDataAttribute({
+																	id: _id,
+																	type: _type,
+																	path: `useCases[_key=="${firstCase._key}"].image`,
+																}).toString()}
 																className={cn(
 																	'clip-path relative w-full overflow-hidden max-lg:aspect-square',
 																	isEvenRow
@@ -273,7 +306,7 @@ export default function OfferingLayout({ page }: { page: PageType }) {
 																			.auto('format')
 																			.url() as string
 																	}
-																	alt={firstCase.image?.alt || ''}
+																	alt={stegaClean(firstCase.image?.alt) || ''}
 																	fill
 																	sizes="(min-width: 499px) 50vw, 100vw"
 																/>
@@ -307,6 +340,11 @@ export default function OfferingLayout({ page }: { page: PageType }) {
 																	<Corner variant="solar" />
 																</div>
 																<div
+																	data-sanity={createDataAttribute({
+																		id: _id,
+																		type: _type,
+																		path: `useCases[_key=="${secondCase._key}"].image`,
+																	}).toString()}
 																	className={cn(
 																		'clip-path relative w-full overflow-hidden max-lg:aspect-square',
 																		isEvenRow
@@ -322,7 +360,7 @@ export default function OfferingLayout({ page }: { page: PageType }) {
 																				.auto('format')
 																				.url() as string
 																		}
-																		alt={secondCase.title || ''}
+																		alt={stegaClean(secondCase.title) || ''}
 																		fill
 																		sizes="(min-width: 499px) 50vw, 100vw"
 																	/>

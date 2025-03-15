@@ -1,9 +1,11 @@
+import { ImageIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
 	name: 'sanityImage',
 	title: 'Image',
 	type: 'image',
+	icon: ImageIcon,
 	options: {
 		hotspot: true,
 	},

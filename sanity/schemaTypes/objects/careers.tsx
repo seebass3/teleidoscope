@@ -12,7 +12,7 @@ export default defineType({
 			validation: (rule) =>
 				rule.custom((value, context) => {
 					if (context.document?.pageType === 'about' && !value) {
-						return 'Heading is required for about pages'
+						return 'Required'
 					}
 					return true
 				}),
@@ -25,7 +25,7 @@ export default defineType({
 			validation: (rule) =>
 				rule.custom((value, context) => {
 					if (context.document?.pageType === 'about' && !value) {
-						return 'Content is required for about pages'
+						return 'Required'
 					}
 					return true
 				}),
@@ -53,10 +53,9 @@ export default defineType({
 				rule.custom((value, context) => {
 					if (
 						context.document?.pageType === 'about' &&
-						value &&
-						value.length < 1
+						(!value || value.length === 0)
 					) {
-						return 'At least one carousel image is required for about pages'
+						return 'At least one carousel image required'
 					}
 					return true
 				}),

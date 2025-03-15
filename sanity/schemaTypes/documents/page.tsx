@@ -50,7 +50,7 @@ export default defineType({
 			validation: (rule) =>
 				rule.custom((value, context) => {
 					if (context.document?.pageType === 'legal' && !value) {
-						return 'Legal content is required'
+						return 'Required'
 					}
 					return true
 				}),
@@ -73,12 +73,12 @@ export default defineType({
 			},
 			validation: (rule) =>
 				rule.custom((value, context) => {
-					const pageType = context.document?.pageType
-					const isRequiredPageType =
-						pageType === 'offering' || pageType === 'about'
-
-					if (isRequiredPageType && !value) {
-						return 'Hero section is required for offering and about pages'
+					if (
+						(context.document?.pageType === 'offering' ||
+							context.document?.pageType === 'about') &&
+						!value
+					) {
+						return 'Required'
 					}
 					return true
 				}),
@@ -145,7 +145,7 @@ export default defineType({
 			validation: (rule) =>
 				rule.custom((value, context) => {
 					if (context.document?.pageType === 'offering' && !value) {
-						return 'Product specs are required'
+						return 'Required'
 					}
 					return true
 				}),
@@ -191,7 +191,7 @@ export default defineType({
 				rule.custom((value, context) => {
 					if (
 						context.document?.pageType === 'about' &&
-						(!value || value.length < 1)
+						(!value || value.length === 0)
 					) {
 						return 'At least one expertise item is required'
 					}
@@ -206,7 +206,7 @@ export default defineType({
 			validation: (rule) =>
 				rule.custom((value, context) => {
 					if (context.document?.pageType === 'about' && !value) {
-						return 'Careers section is required'
+						return 'Required'
 					}
 					return true
 				}),

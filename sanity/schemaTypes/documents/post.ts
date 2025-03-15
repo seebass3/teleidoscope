@@ -1,4 +1,4 @@
-import { DocumentTextIcon } from '@sanity/icons'
+import { DocumentTextIcon, TextIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
@@ -32,9 +32,32 @@ export default defineType({
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
-			name: 'subheading',
-			title: 'Subheading',
-			type: 'text',
+			name: 'heading',
+			title: 'Page heading',
+			description:
+				'Add text blocks that will appear as separate headings with space between them at the top of the page.',
+			type: 'array',
+			of: [
+				{
+					name: 'textBlock',
+					title: 'Text Block',
+					type: 'object',
+					icon: TextIcon,
+					fields: [
+						{
+							name: 'text',
+							type: 'text',
+							title: 'Text',
+							rows: 3,
+						},
+					],
+					preview: {
+						select: {
+							title: 'text',
+						},
+					},
+				},
+			],
 		}),
 		defineField({
 			name: 'content',
@@ -45,6 +68,9 @@ export default defineType({
 			name: 'excerpt',
 			title: 'Excerpt',
 			type: 'text',
+			rows: 8,
+			description: 'Important for SEO.',
+			validation: (rule) => rule.required(),
 		}),
 		defineField({
 			name: 'coverImage',
@@ -53,13 +79,21 @@ export default defineType({
 			options: {
 				hotspot: true,
 			},
-			validation: (rule) => rule.required(),
+			validation: (rule) => {
+				return rule.custom((value: any) => {
+					if (!value || !value?.asset?._ref) {
+						return 'Image is required'
+					}
+					return true
+				})
+			},
 		}),
 		defineField({
 			name: 'date',
 			title: 'Date',
 			type: 'datetime',
 			initialValue: () => new Date().toISOString(),
+			validation: (rule) => rule.required(),
 		}),
 		defineField({
 			name: 'author',
@@ -68,7 +102,6 @@ export default defineType({
 			to: [{ type: 'person' }],
 		}),
 	],
-	// List preview configuration. https://www.sanity.io/docs/previews-list-views
 	preview: {
 		select: {
 			title: 'title',
@@ -88,4 +121,16 @@ export default defineType({
 			return { title, media, subtitle: subtitles.join(' ') }
 		},
 	},
+	orderings: [
+		{
+			name: 'dateDesc',
+			title: 'Posted Date, New',
+			by: [{ field: 'date', direction: 'desc' }],
+		},
+		{
+			name: 'dateAsc',
+			title: 'Posted Date, Old',
+			by: [{ field: 'date', direction: 'asc' }],
+		},
+	],
 })

@@ -5,7 +5,6 @@ export default defineType({
 	name: 'feature',
 	title: 'Feature',
 	type: 'object',
-	icon: ListIcon,
 	fields: [
 		defineField({
 			name: 'title',

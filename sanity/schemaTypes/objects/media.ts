@@ -34,7 +34,7 @@ export default defineType({
 						context.parent?.mediaType === 'image' &&
 						(!value || !value?.asset?._ref)
 					) {
-						return 'Image is required'
+						return 'Required'
 					}
 					return true
 				})
@@ -70,7 +70,7 @@ export default defineType({
 			validation: (rule) => {
 				return rule.custom((value, context: any) => {
 					if (context.parent?.mediaType === 'video' && !value) {
-						return 'Video is required'
+						return 'Required'
 					}
 					return true
 				})

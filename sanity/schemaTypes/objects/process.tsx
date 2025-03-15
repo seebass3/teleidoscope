@@ -1,4 +1,4 @@
-import { StackCompactIcon, TextIcon } from '@sanity/icons'
+import { StackIcon, TextIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
@@ -10,7 +10,13 @@ export default defineType({
 			name: 'icon',
 			title: 'Icon',
 			type: 'sanityImage',
-			validation: (rule) => rule.required(),
+			validation: (rule) =>
+				rule.custom((value: any) => {
+					if (!value || !value?.asset?._ref) {
+						return 'Required'
+					}
+					return true
+				}),
 		}),
 		defineField({
 			name: 'title',
@@ -74,7 +80,7 @@ export default defineType({
 			return {
 				title: title,
 				subtitle: formattedSubtitle,
-				media: media || StackCompactIcon,
+				media: media?.asset ? media : StackIcon,
 			}
 		},
 	},

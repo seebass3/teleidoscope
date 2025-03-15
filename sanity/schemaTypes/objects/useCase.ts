@@ -1,11 +1,11 @@
-import { StackCompactIcon } from '@sanity/icons'
+import { StackIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
 	name: 'useCase',
 	title: 'Use Case',
 	type: 'object',
-	icon: StackCompactIcon,
+	icon: StackIcon,
 	fields: [
 		defineField({
 			name: 'title',
@@ -23,7 +23,7 @@ export default defineType({
 			validation: (rule) =>
 				rule.custom((value: any) => {
 					if (!value || !value?.asset?._ref) {
-						return 'Image required'
+						return 'Required'
 					}
 					return true
 				}),

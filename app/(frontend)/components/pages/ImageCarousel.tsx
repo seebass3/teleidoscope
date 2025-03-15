@@ -1,26 +1,39 @@
 'use client'
 
-import { SanityImage } from '@/sanity.types'
+import { Careers } from '@/sanity.types'
 import { urlForImage } from '@/sanity/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
+import { createDataAttribute, stegaClean } from 'next-sanity'
 import { Image } from 'next-sanity/image'
 import { useEffect, useState } from 'react'
 
+export type CarouselImage = NonNullable<Careers['imageCarousel']>[number]
+
 export default function ImageCarousel({
-	images,
+	images = [],
+	documentId,
+	documentType,
 	interval = 5000,
 }: {
-	images: SanityImage[]
+	images: CarouselImage[]
+	documentId?: string
+	documentType?: string
 	interval?: number
 }) {
 	const [currentIndex, setCurrentIndex] = useState(0)
+
+	useEffect(() => {
+		if (currentIndex >= images.length && images.length > 0) {
+			setCurrentIndex(0)
+		}
+	}, [images.length, currentIndex])
 
 	useEffect(() => {
 		if (images.length <= 1) return
 
 		const intervalId = setInterval(() => {
 			setCurrentIndex((prevIndex) =>
-				prevIndex === images.length - 1 ? 0 : prevIndex + 1,
+				prevIndex >= images.length - 1 ? 0 : prevIndex + 1,
 			)
 		}, interval)
 
@@ -39,19 +52,26 @@ export default function ImageCarousel({
 						transition={{ duration: 0.8 }}
 						className="absolute h-full w-full"
 					>
-						<Image
-							src={
-								urlForImage(images[currentIndex])
-									?.width(800)
-									.auto('format')
-									.url() as string
-							}
-							alt={images[currentIndex].alt || 'Carousel Image'}
-							fill
-							sizes="(max-width: 768px) 100vw, 50vw"
-							className="object-cover"
-							priority={currentIndex === 0}
-						/>
+						{images[currentIndex] && images[currentIndex].asset?._ref && (
+							<Image
+								data-sanity={createDataAttribute({
+									id: documentId,
+									type: documentType,
+									path: `careers.imageCarousel[_key=="${images[currentIndex]._key}"]`,
+								}).toString()}
+								src={
+									urlForImage(images[currentIndex])
+										?.width(800)
+										.auto('format')
+										.url() as string
+								}
+								alt={stegaClean(images[currentIndex].alt) || 'Carousel Image'}
+								fill
+								sizes="(max-width: 768px) 100vw, 50vw"
+								className="object-cover"
+								priority={currentIndex === 0}
+							/>
+						)}
 					</motion.div>
 				</AnimatePresence>
 			</div>

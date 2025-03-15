@@ -1,6 +1,7 @@
 import { cn } from '@/app/lib/utils'
-import { Page as PageType, SanityImage } from '@/sanity.types'
+import { Page as PageType } from '@/sanity.types'
 import { urlForImage } from '@/sanity/lib/utils'
+import { createDataAttribute, stegaClean } from 'next-sanity'
 import { Image } from 'next-sanity/image'
 import { Suspense } from 'react'
 import Button from '../Button'
@@ -13,14 +14,24 @@ import Hero from './Hero'
 import ImageCarousel from './ImageCarousel'
 
 export default async function AboutLayout({ page }: { page: PageType }) {
-	const { title, hero, heading, expertise, careers, process, contactForm } =
-		page
+	const {
+		_id,
+		_type,
+		title,
+		hero,
+		heading,
+		expertise,
+		careers,
+		process,
+		contactForm,
+	} = page
+
 	return (
 		<>
 			<div className="container pt-[160px] lg:pt-[200px]">
 				<h1 className="mb-sm pl-line text-slate">{title}</h1>
 			</div>
-			<Hero hero={hero} />
+			<Hero hero={hero} documentId={_id} documentType={_type} />
 			{heading && (
 				<div className="container pt-xl">
 					<div className="flex justify-center lg:justify-start xl:justify-end">
@@ -134,8 +145,15 @@ export default async function AboutLayout({ page }: { page: PageType }) {
 								)}
 							</div>
 						</div>
+
 						<div className="clip-path flex w-full basis-1/2 flex-col gap-y-nano pl-line">
-							<ImageCarousel images={careers?.imageCarousel as SanityImage[]} />
+							{careers?.imageCarousel && (
+								<ImageCarousel
+									images={careers?.imageCarousel}
+									documentId={_id}
+									documentType={_type}
+								/>
+							)}
 						</div>
 					</div>
 				</div>
@@ -158,8 +176,15 @@ export default async function AboutLayout({ page }: { page: PageType }) {
 											<div className="flex w-[40px] justify-start">
 												{processItem.icon && processItem.icon.asset && (
 													<Image
+														data-sanity={createDataAttribute({
+															id: _id,
+															type: _type,
+															path: `process[_key=="${processItem._key}"].icon`,
+														}).toString()}
 														src={urlForImage(processItem.icon)?.url() || ''}
-														alt={processItem.title || 'Process icon'}
+														alt={
+															stegaClean(processItem.title) || 'Process icon'
+														}
 														width={40}
 														height={40}
 													/>

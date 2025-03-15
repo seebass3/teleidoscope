@@ -1,5 +1,6 @@
 import { Media } from '@/sanity.types'
 import { urlForImage } from '@/sanity/lib/utils'
+import { createDataAttribute, stegaClean } from 'next-sanity'
 import { Image } from 'next-sanity/image'
 import BackgroundPlayer from 'next-video/background-player'
 import InDevelopment from '../InDevelopment'
@@ -10,12 +11,23 @@ const MUX_BASE_IMAGE_URL = 'https://image.mux.com/'
 export default function Hero({
 	hero,
 	inDevelopment,
+	documentId,
+	documentType,
 }: {
 	hero?: Media
 	inDevelopment?: boolean
+	documentId?: string
+	documentType?: string
 }) {
 	return (
-		<div className="relative h-[221px] md:h-[310px] lg:h-[600px]">
+		<div
+			data-sanity={createDataAttribute({
+				id: documentId,
+				type: documentType,
+				path: hero?.mediaType === 'video' ? `hero.video` : `hero.image`,
+			}).toString()}
+			className="relative h-[221px] md:h-[310px] lg:h-[600px]"
+		>
 			{hero?.mediaType === 'video' && hero.video?.playbackId && (
 				<BackgroundPlayer
 					playbackId={hero.video.playbackId}
@@ -36,7 +48,7 @@ export default function Hero({
 								.auto('format')
 								.url() as string
 						}
-						alt={hero.image.alt || 'Hero Image'}
+						alt={stegaClean(hero.image.alt) || 'Hero Image'}
 						fill
 						sizes="100vw"
 						className="object-cover"
